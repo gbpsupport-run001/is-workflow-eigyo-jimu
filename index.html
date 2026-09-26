@@ -155,6 +155,56 @@
     margin-top:2px;
   }
 
+  .template{
+    margin-top:8px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#fafbfd;
+  }
+  .template summary{
+    cursor:pointer;
+    list-style:none;
+    padding:6px 10px;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    user-select:none;
+  }
+  .template summary::-webkit-details-marker{display:none;}
+  .template summary::before{
+    content:"▶";
+    font-size:9px;
+    color:#9aa5b8;
+    transition:transform .15s ease;
+  }
+  .template[open] summary::before{
+    transform:rotate(90deg);
+  }
+  .template summary .icon{
+    font-size:12px;
+  }
+  .template .tpl-body{
+    border-top:1px solid var(--line);
+    padding:14px 16px;
+    background:#fff;
+  }
+  .template .tpl-text{
+    white-space:pre-wrap;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#333;
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    border-left:3px solid var(--r-eigyo);
+    padding-left:12px;
+  }
+  .template .tpl-fill{
+    color:#b3701f;
+    font-weight:700;
+  }
+
   .footer{
     border-top:1px solid var(--line);
     padding:14px 32px;
@@ -227,11 +277,40 @@
             <span class="box"></span>
             <span class="step">⑦</span>
             <span class="role eigyo">営業</span>
-            <span class="txt">GBP（Googleビジネスプロフィール）のオーナー権限を取得</span>
+            <span class="txt">
+              お客様へフォローメッセージ
+              <details class="template">
+                <summary><span class="icon">✉️</span>例文テンプレートを見る</summary>
+                <div class="tpl-body">
+                  <div class="tpl-text"><span class="tpl-fill">○○</span> 様
+
+お世話になっております。
+株式会社ランバードの<span class="tpl-fill">○○</span>です
+
+先程は、お忙しい中ご対応頂きありがとうございます。
+改めまして、<span class="tpl-fill">○○月○○日</span>からどうぞよろしくお願い致します。
+
+次回ミーティングにつきまして、30分ほどZoomにてお時間いただければと思います。<span class="tpl-fill">○○/○○(〇)</span>にお時間いただければと思います。
+
+また、お手すきのタイミングで、<span class="tpl-fill">○○</span>のお写真や動画などございましたら、こちらのLINEに送っていただけますと幸いです。
+
+引き続きよろしくお願いします。
+
+株式会社ランバード
+<span class="tpl-fill">○○</span></div>
+                </div>
+              </details>
+            </span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑧</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">GBP（Googleビジネスプロフィール）のオーナー権限を取得</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑨</span>
             <span class="role gyomu">業務</span>
             <span class="txt">
               営業から【ロボットペイメント登録依頼】テンプレを受信し、請求連絡・登録を行う
@@ -239,25 +318,25 @@
           </li>
           <li>
             <span class="box"></span>
-            <span class="step">⑨</span>
+            <span class="step">⑩</span>
             <span class="role jimu">営業事務</span>
             <span class="txt">運用へ【MEO運用依頼（営業→運用）】テンプレで運用依頼</span>
           </li>
           <li>
             <span class="box"></span>
-            <span class="step">⑩</span>
+            <span class="step">⑪</span>
             <span class="role gyomu">業務</span>
             <span class="txt">請求書発行＆決済確認</span>
           </li>
           <li>
             <span class="box"></span>
-            <span class="step">⑪</span>
+            <span class="step">⑫</span>
             <span class="role eigyo">営業</span>
             <span class="txt">口コミアンケートを提出する</span>
           </li>
           <li>
             <span class="box"></span>
-            <span class="step">⑫</span>
+            <span class="step">⑬</span>
             <span class="role eigyo">営業</span>
             <span class="txt">ヒアリングシートを提出する</span>
           </li>
@@ -308,42 +387,71 @@
           <li>
             <span class="box"></span>
             <span class="step">⑦</span>
-            <span class="role gyomu">業務</span>
-            <span class="txt">請求書発行＆決済確認</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">
+              お客様へフォローメッセージ
+              <details class="template">
+                <summary><span class="icon">✉️</span>例文テンプレートを見る</summary>
+                <div class="tpl-body">
+                  <div class="tpl-text"><span class="tpl-fill">○○</span> 様
+
+お世話になっております。
+株式会社ランバードの<span class="tpl-fill">○○</span>です
+
+先程は、お忙しい中ご対応頂きありがとうございます。
+改めまして、<span class="tpl-fill">○○月○○日</span>からどうぞよろしくお願い致します。
+
+次回ミーティングにつきまして、30分ほどZoomにてお時間いただければと思います。<span class="tpl-fill">○○/○○(〇)</span>にお時間いただければと思います。
+
+また、お手すきのタイミングで、<span class="tpl-fill">○○</span>のお写真や動画などございましたら、こちらのLINEに送っていただけますと幸いです。
+
+引き続きよろしくお願いします。
+
+株式会社ランバード
+<span class="tpl-fill">○○</span></div>
+                </div>
+              </details>
+            </span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑧</span>
             <span class="role gyomu">業務</span>
-            <span class="txt">決済確認が取れたら営業へ決済完了のアナウンス</span>
+            <span class="txt">請求書発行＆決済確認</span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑨</span>
-            <span class="role eigyo">営業</span>
-            <span class="txt">初回ヒアリング（ディレクション）を実施し、ヒアリングシートとヒアリングログを提出</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">決済確認が取れたら営業へ決済完了のアナウンス</span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑩</span>
             <span class="role eigyo">営業</span>
-            <span class="txt">ヒアリング完了した旨を業務に報告</span>
+            <span class="txt">初回ヒアリング（ディレクション）を実施し、ヒアリングシートとヒアリングログを提出</span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑪</span>
-            <span class="role gyomu">業務</span>
-            <span class="txt">ヒアリング完了報告を受け、制作へ制作依頼</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">ヒアリング完了した旨を業務に報告</span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑫</span>
             <span class="role gyomu">業務</span>
-            <span class="txt">制作から納品の連絡を受け、営業グループへ【納品完了連絡】テンプレで連絡</span>
+            <span class="txt">ヒアリング完了報告を受け、制作へ制作依頼</span>
           </li>
           <li>
             <span class="box"></span>
             <span class="step">⑬</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">制作から納品の連絡を受け、営業グループへ【納品完了連絡】テンプレで連絡</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑭</span>
             <span class="role eigyo">営業</span>
             <span class="txt">
               お客様へ『YouTubeアカウント＆チャンネル作成のご案内』のフォロー電話
@@ -352,13 +460,13 @@
           </li>
           <li>
             <span class="box"></span>
-            <span class="step">⑭</span>
+            <span class="step">⑮</span>
             <span class="role eigyo">営業</span>
             <span class="txt">フォロー電話終了後、【AI動画】運用開始依頼】テンプレで営業事務に連絡</span>
           </li>
           <li>
             <span class="box"></span>
-            <span class="step">⑮</span>
+            <span class="step">⑯</span>
             <span class="role gyomu">業務</span>
             <span class="txt">【AI動画】運用開始依頼】をマーケへ転送</span>
           </li>
