@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IS事業部 商談の引継ぎ手順</title>
+<style>
+  :root{
+    --navy:#1b2a4a;
+    --line:#d8dee8;
+    --bg:#f5f7fb;
+    --talk:#2f5da6;
+    --lead:#c0621f;
+    --share:#4a8a5c;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg);
+    color:#222;
+    margin:0;
+    padding:32px;
+    line-height:1.7;
+  }
+  .sheet{
+    max-width:860px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .header{
+    background:var(--navy);
+    color:#fff;
+    padding:20px 32px;
+  }
+  .header .eyebrow{
+    font-size:12px;
+    letter-spacing:.08em;
+    opacity:.8;
+    margin-bottom:4px;
+  }
+  .header h1{margin:0;font-size:21px;}
+  .header .sub{font-size:12px;opacity:.75;margin-top:6px;}
+  .body{padding:28px 32px 32px;}
+
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    font-size:11.5px;
+    margin-bottom:24px;
+    padding:10px 14px;
+    background:#eef2f9;
+    border:1px solid var(--line);
+    border-radius:4px;
+    color:#445;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .badge{
+    font-size:10.5px;font-weight:700;color:#fff;
+    padding:2px 7px;border-radius:3px;white-space:nowrap;
+  }
+  .badge.talk{background:var(--talk);}
+  .badge.lead{background:var(--lead);}
+  .badge.share{background:var(--share);}
+
+  .lvl1{
+    font-size:15px;
+    font-weight:700;
+    color:var(--navy);
+    margin:0 0 16px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--navy);
+  }
+
+  .steps{list-style:none;margin:0;padding:0;}
+  .step{
+    display:flex;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .step:last-child{border-bottom:none;}
+  .num{
+    flex:0 0 32px;
+    height:32px;
+    border-radius:50%;
+    background:var(--navy);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .main{flex:1;}
+  .main .title{
+    font-size:14.5px;
+    font-weight:700;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .main .desc{
+    font-size:13.5px;
+    margin-top:6px;
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+  }
+  .box{
+    flex:0 0 16px;
+    height:16px;
+    border:1.5px solid #9aa5b8;
+    border-radius:3px;
+    margin-top:4px;
+  }
+  .note{
+    display:block;
+    color:#888;
+    font-size:11.5px;
+    margin-top:3px;
+  }
+
+  .footer{
+    border-top:1px solid var(--line);
+    padding:14px 32px;
+    font-size:11px;
+    color:#888;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .footer a{color:#2f5da6;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="header">
+    <div class="eyebrow">RUNBIRD IS事業部</div>
+    <h1>商談の引継ぎ手順</h1>
+    <div class="sub">商談中に担当を引き継ぐときの動き方</div>
+  </div>
+
+  <div class="body">
+    <div class="legend">
+      <span><span class="badge talk">トーク担当</span>そのとき商談で話している人</span>
+      <span><span class="badge lead">監督者</span>後から入室して商談を見る人</span>
+      <span><span class="badge share">共有</span>商談後の情報共有</span>
+    </div>
+
+    <p class="lvl1">■ 商談の引継ぎ手順</p>
+
+    <ol class="steps">
+      <li class="step">
+        <div class="num">1</div>
+        <div class="main">
+          <div class="title"><span class="badge talk">トーク担当</span>入室後5分は、そのままトークを続ける</div>
+          <div class="desc">
+            <span class="box"></span>
+            <span>入室後5分間は、そのときトークをしている人がそのまま進行する</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="num">2</div>
+        <div class="main">
+          <div class="title"><span class="badge lead">監督者</span>自己紹介のタイミングに入る</div>
+          <div class="desc">
+            <span class="box"></span>
+            <span>後から入室した監督者の加減で、自己紹介のタイミングに入る</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="num">3</div>
+        <div class="main">
+          <div class="title"><span class="badge talk">トーク担当</span>監督者の指示があるまで退出しない</div>
+          <div class="desc">
+            <span class="box"></span>
+            <span>監督者から指示があるまで、商談の場から退出しない</span>
+          </div>
+        </div>
+      </li>
+
+      <li class="step">
+        <div class="num">4</div>
+        <div class="main">
+          <div class="title"><span class="badge share">共有</span>ヒアリング内容はLINEで共有</div>
+          <div class="desc">
+            <span class="box"></span>
+            <span>ヒアリングの内容があれば、LINEで共有する</span>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <span>株式会社ランバード　IS事業部</span>
+    <a href="./">← 案件受注後のワークフローへ</a>
+  </div>
+</div>
+</body>
+</html>
