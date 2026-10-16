@@ -213,6 +213,27 @@
     display:flex;
     justify-content:space-between;
   }
+
+  .page-nav{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:16px;
+  }
+  .nav-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:6px;
+    transition:background .15s ease;
+  }
+  .nav-btn:hover{background:#2f5da6;}
+  .nav-btn .arrow{font-size:14px;}
 </style>
 </head>
 <body>
@@ -224,6 +245,10 @@
   </div>
 
   <div class="body">
+    <div class="page-nav">
+      <a class="nav-btn" href="handover.html">商談の引継ぎ手順<span class="arrow">→</span></a>
+    </div>
+
     <div class="legend">
       <span><span class="badge eigyo">営業</span>お客様対応・折衝・現場ディレクション</span>
       <span><span class="badge jimu">営業事務</span>成約報告・グループ連携など</span>
