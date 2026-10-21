@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>IS事業部 案件受注後ワークフロー｜全体チェックリスト</title>
+<style>
+  :root{
+    --navy:#1b2a4a;
+    --line:#d8dee8;
+    --bg:#f5f7fb;
+    --meo:#2f5da6;
+    --video:#b3701f;
+    --r-eigyo:#2f5da6;
+    --r-jimu:#c0621f;
+    --r-gyomu:#4a8a5c;
+    --r-other:#7a5cae;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg);
+    color:#222;
+    margin:0;
+    padding:32px;
+    line-height:1.6;
+  }
+  .sheet{
+    max-width:900px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .header{
+    background:var(--navy);
+    color:#fff;
+    padding:20px 32px;
+  }
+  .header .eyebrow{
+    font-size:12px;
+    letter-spacing:.08em;
+    opacity:.8;
+    margin-bottom:4px;
+  }
+  .header h1{
+    margin:0;
+    font-size:21px;
+  }
+  .header .sub{
+    font-size:12px;
+    opacity:.75;
+    margin-top:6px;
+  }
+  .body{padding:28px 32px 32px;}
+
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    font-size:11.5px;
+    margin-bottom:24px;
+    padding:10px 14px;
+    background:#eef2f9;
+    border:1px solid var(--line);
+    border-radius:4px;
+    color:#445;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend .badge{
+    font-size:10px;font-weight:700;color:#fff;
+    padding:1px 6px;border-radius:3px;
+  }
+  .badge.eigyo{background:var(--r-eigyo);}
+  .badge.jimu{background:var(--r-jimu);}
+  .badge.gyomu{background:var(--r-gyomu);}
+  .badge.other{background:var(--r-other);}
+
+  .lvl1{
+    font-size:15px;
+    font-weight:700;
+    color:var(--navy);
+    margin:0 0 16px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--navy);
+  }
+
+  .flow{
+    margin-bottom:28px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .flow-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    font-weight:700;
+    color:#fff;
+    padding:10px 16px;
+  }
+  .flow-title.meo{background:var(--meo);}
+  .flow-title.video{background:var(--video);}
+
+  .flow-body{padding:16px 20px 18px;}
+
+  ul.check{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  ul.check li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13.5px;
+    padding:8px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  ul.check li:last-child{border-bottom:none;}
+  ul.check li .box{
+    flex:0 0 16px;
+    height:16px;
+    border:1.5px solid #9aa5b8;
+    border-radius:3px;
+    margin-top:1px;
+  }
+  ul.check li .step{
+    flex:0 0 auto;
+    font-weight:700;
+    color:#9aa5b8;
+    font-size:12px;
+    margin-top:1px;
+  }
+  ul.check li .role{
+    flex:0 0 auto;
+    font-size:10.5px;
+    font-weight:700;
+    color:#fff;
+    padding:2px 7px;
+    border-radius:3px;
+    margin-top:0px;
+    white-space:nowrap;
+  }
+  ul.check li .role.eigyo{background:var(--r-eigyo);}
+  ul.check li .role.jimu{background:var(--r-jimu);}
+  ul.check li .role.gyomu{background:var(--r-gyomu);}
+  ul.check li .role.other{background:var(--r-other);}
+  ul.check li .txt{flex:1;}
+  ul.check li .txt .note{
+    display:block;
+    color:#888;
+    font-size:11.5px;
+    margin-top:2px;
+  }
+
+  .template{
+    margin-top:8px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#fafbfd;
+  }
+  .template summary{
+    cursor:pointer;
+    list-style:none;
+    padding:6px 10px;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    user-select:none;
+  }
+  .template summary::-webkit-details-marker{display:none;}
+  .template summary::before{
+    content:"▶";
+    font-size:9px;
+    color:#9aa5b8;
+    transition:transform .15s ease;
+  }
+  .template[open] summary::before{
+    transform:rotate(90deg);
+  }
+  .template summary .icon{
+    font-size:12px;
+  }
+  .template .tpl-body{
+    border-top:1px solid var(--line);
+    padding:14px 16px;
+    background:#fff;
+  }
+  .template .tpl-text{
+    white-space:pre-wrap;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#333;
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    border-left:3px solid var(--r-eigyo);
+    padding-left:12px;
+  }
+  .template .tpl-fill{
+    color:#b3701f;
+    font-weight:700;
+  }
+
+  .footer{
+    border-top:1px solid var(--line);
+    padding:14px 32px;
+    font-size:11px;
+    color:#888;
+    display:flex;
+    justify-content:space-between;
+  }
+
+  .page-nav{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .nav-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:6px;
+    transition:background .15s ease;
+  }
+  .nav-btn:hover{background:#2f5da6;}
+  .nav-btn .arrow{font-size:14px;}
+
+  .policy-note{
+    background:#f3f8f4;
+    border:1px solid #cfe3d4;
+    border-left:4px solid #4a8a5c;
+    border-radius:4px;
+    padding:10px 14px;
+    margin-bottom:20px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#2f4a38;
+  }
+  .policy-note b{color:#2f6b45;}
+</style>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+<nav class="topbar">
+  <a href="./" class="home">🏠 ホーム</a>
+  <span class="sep"></span>
+  <a href="appo-followup.html">アポ取得後の対応</a>
+  <a href="it-is-handover.html">IT→IS引継ぎ</a>
+  <a href="handover.html">商談の引継ぎ手順</a>
+  <a href="workflow.html" class="active">受注後ワークフロー</a>
+</nav>
+<div class="sheet">
+  <div class="header">
+    <div class="eyebrow">RUNBIRD IS事業部</div>
+    <h1>案件受注後のワークフロー（全体版）</h1>
+    <div class="sub">MEOクラウド／BUZZ＋の各フローと担当者の流れ</div>
+  </div>
+
+  <div class="body">
+    <div class="page-nav">
+      <a class="nav-btn" href="it-is-handover.html">IT→IS 商談引継ぎフロー<span class="arrow">→</span></a>
+      <a class="nav-btn" href="handover.html">商談の引継ぎ手順<span class="arrow">→</span></a>
+    </div>
+
+    <div class="policy-note">
+      <b>このページの位置づけ</b><br>
+      ガチガチの規律ではなく、「条例」レベルの目安です。大前提として、報告漏れなどは一人で抱えず、みんなで管理します。
+    </div>
+
+    <div class="legend">
+      <span><span class="badge eigyo">営業</span>お客様対応・折衝・現場ディレクション</span>
+      <span><span class="badge jimu">営業事務</span>成約報告・グループ連携など</span>
+      <span><span class="badge gyomu">業務</span>請求登録・請求書発行・決済確認</span>
+      <span><span class="badge other">運用/制作/マーケ</span>実運用・制作・配信対応</span>
+    </div>
+
+    <p class="lvl1">■ 案件受注後のワークフロー</p>
+
+    <div class="flow">
+      <div class="flow-title meo">■ MEOクラウドの場合のフロー</div>
+      <div class="flow-body">
+        <ul class="check">
+          <li>
+            <span class="box"></span>
+            <span class="step">①</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">行動予定にGET報告</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">②</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">成約報告を成約報告グループに報告</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">③</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">申込書をDocuSignからダウンロードし、業務に送付</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">④</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">【請求登録依頼（営業→業務）】テンプレで初期費用請求の連絡</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑤</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">顧客管理表スプレッドシート更新</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑥</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">AXTのリストステータスを自社管理顧客に変更</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑦</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">GETログがPlaudに反映されているか確認。反映されていない場合、営業がGETログをPlaudにアップロード</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑧</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">
+              お客様へフォローメッセージ
+              <details class="template">
+                <summary><span class="icon">✉️</span>例文テンプレートを見る</summary>
+                <div class="tpl-body">
+                  <div class="tpl-text"><span class="tpl-fill">○○</span> 様
+
+お世話になっております。
+株式会社ランバードの<span class="tpl-fill">○○</span>です
+
+先程は、お忙しい中ご対応頂きありがとうございます。
+改めまして、<span class="tpl-fill">○○月○○日</span>からどうぞよろしくお願い致します。
+
+次回ミーティングにつきまして、30分ほどZoomにてお時間いただければと思います。<span class="tpl-fill">○○/○○(〇)</span>にお時間いただければと思います。
+
+また、お手すきのタイミングで、<span class="tpl-fill">○○</span>のお写真や動画などございましたら、こちらのLINEに送っていただけますと幸いです。
+
+引き続きよろしくお願いします。
+
+株式会社ランバード
+<span class="tpl-fill">○○</span></div>
+                </div>
+              </details>
+            </span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑨</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">GBP（Googleビジネスプロフィール）のオーナー権限を取得</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑩</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">
+              営業から【ロボットペイメント登録依頼】テンプレを受信し、請求連絡・登録を行う
+            </span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑪</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">運用へ【MEO運用依頼（営業→運用）】テンプレで運用依頼</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑫</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">請求書発行＆決済確認</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑬</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">口コミアンケートを提出する</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑭</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">ヒアリングシートを提出する</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title video">■ BUZZ＋の場合のフロー</div>
+      <div class="flow-body">
+        <ul class="check">
+          <li>
+            <span class="box"></span>
+            <span class="step">①</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">行動予定にGET報告</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">②</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">成約報告を成約報告グループに報告</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">③</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">申込書をDocuSignからダウンロードし、業務に送付</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">④</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">【請求登録依頼（営業→業務）】テンプレで初期費用請求の連絡</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑤</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">顧客管理表スプレッドシート更新</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑥</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">AXTのリストステータスを自社管理顧客に変更</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑦</span>
+            <span class="role jimu">営業事務</span>
+            <span class="txt">GETログがPlaudに反映されているか確認。反映されていない場合、営業がGETログをPlaudにアップロード</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑧</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">
+              お客様へフォローメッセージ
+              <details class="template">
+                <summary><span class="icon">✉️</span>例文テンプレートを見る</summary>
+                <div class="tpl-body">
+                  <div class="tpl-text"><span class="tpl-fill">○○</span> 様
+
+お世話になっております。
+株式会社ランバードの<span class="tpl-fill">○○</span>です
+
+先程は、お忙しい中ご対応頂きありがとうございます。
+改めまして、<span class="tpl-fill">○○月○○日</span>からどうぞよろしくお願い致します。
+
+次回ミーティングにつきまして、30分ほどZoomにてお時間いただければと思います。<span class="tpl-fill">○○/○○(〇)</span>にお時間いただければと思います。
+
+また、お手すきのタイミングで、<span class="tpl-fill">○○</span>のお写真や動画などございましたら、こちらのLINEに送っていただけますと幸いです。
+
+引き続きよろしくお願いします。
+
+株式会社ランバード
+<span class="tpl-fill">○○</span></div>
+                </div>
+              </details>
+            </span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑨</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">
+              総合窓口の友達追加の案内
+              <span class="note">※代表の名前を送信してもらう必要あり</span>
+              <details class="template">
+                <summary><span class="icon">✉️</span>例文テンプレートを見る</summary>
+                <div class="tpl-body">
+                  <div class="tpl-text">ランバード総合窓口のLINEのURL
+動画作成チームのグループLINEです。
+https://works.do/FkcdTz2</div>
+                </div>
+              </details>
+            </span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑩</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">請求書発行＆決済確認</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑪</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">決済確認が取れたら営業へ決済完了のアナウンス</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑫</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">初回ヒアリング（ディレクション）を実施し、ヒアリングシートとヒアリングログを提出</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑬</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">ヒアリング完了した旨を業務に報告</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑭</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">ヒアリング完了報告を受け、制作へ制作依頼</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑮</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">制作から納品の連絡を受け、営業グループへ【納品完了連絡】テンプレで連絡</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑯</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">
+              お客様へ『YouTubeアカウント＆チャンネル作成のご案内』のフォロー電話 or フォローLINE
+              <details class="template">
+                <summary><span class="icon">✉️</span>例文テンプレートを見る</summary>
+                <div class="tpl-body">
+                  <div class="tpl-text"><span class="tpl-fill">○○</span> 様
+
+いつもお世話になっております。
+株式会社ランバードの<span class="tpl-fill">○○</span> です。
+
+制作のグループLINEの方では、動画についてご対応いただき誠にありがとうございました。
+今後の進め方について、ご対応いただきたい件がございます。
+LINEメッセージ宛に「YouTubeチャンネルの開設と管理権限の付与のご案内」をお送りいたしますので、そちらを元にアカウントの開設手続きを進めていただけますと幸いです。
+
+ご対応のほどよろしくお願い申し上げます。
+
+では、引き続きよろしくお願いいたします。</div>
+                </div>
+              </details>
+            </span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑰</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">フォロー電話終了後、【AI動画】運用開始依頼】テンプレで営業事務に連絡</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑱</span>
+            <span class="role gyomu">業務</span>
+            <span class="txt">【AI動画】運用開始依頼】をマーケへ転送</span>
+          </li>
+          <li>
+            <span class="box"></span>
+            <span class="step">⑲</span>
+            <span class="role eigyo">営業</span>
+            <span class="txt">納品後、ギガファイル便で動画をダウンロードし、k.sakuma@runbird.netのアカウントのGoogleドライブに完成動画と素材写真をアップロードし、～AI動画事例集～スプレッドシートに添付</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>株式会社ランバード　IS事業部</span>
+    <span>社内用チェックリスト（全体版）／調整中</span>
+  </div>
+</div>
+</body>
+</html>
