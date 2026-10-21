@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IS事業部 アポ取得後の対応一覧</title>
+<style>
+  :root{
+    --navy:#1b2a4a;
+    --blue:#2f5da6;
+    --green:#4a8a5c;
+    --warn:#c0621f;
+    --red:#c0392b;
+    --line:#d8dee8;
+    --bg:#f5f7fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    margin:0;
+    padding:32px;
+    line-height:1.7;
+  }
+  .sheet{
+    max-width:960px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .header{background:var(--navy);color:#fff;padding:20px 32px;}
+  .header .eyebrow{font-size:12px;letter-spacing:.08em;opacity:.8;margin-bottom:4px;}
+  .header h1{margin:0;font-size:21px;}
+  .header .sub{font-size:12px;opacity:.75;margin-top:6px;}
+  .body{padding:28px 32px 32px;}
+
+  .policy-note{
+    background:#f3f8f4;
+    border:1px solid #cfe3d4;
+    border-left:4px solid #4a8a5c;
+    border-radius:4px;
+    padding:10px 14px;
+    margin-bottom:24px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#2f4a38;
+  }
+  .policy-note b{color:#2f6b45;}
+
+  .lvl1{
+    font-size:15px;font-weight:700;color:var(--navy);
+    margin:34px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--navy);
+  }
+  .lvl1.first{margin-top:0;}
+
+  /* ---- 一覧表 ---- */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;}
+  table.appo{
+    width:100%;
+    min-width:680px;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  table.appo th{
+    background:var(--navy);
+    color:#fff;
+    padding:10px 12px;
+    text-align:left;
+    font-size:13.5px;
+    white-space:nowrap;
+  }
+  table.appo th .no{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;
+    background:#fff;color:var(--navy);
+    font-size:11px;font-weight:800;margin-right:6px;
+  }
+  table.appo td{
+    padding:12px;
+    border-top:1px solid var(--line);
+    vertical-align:top;
+  }
+  table.appo td.type{
+    font-weight:800;
+    color:var(--navy);
+    white-space:nowrap;
+    border-left:6px solid var(--blue);
+    background:#f4f7fc;
+  }
+  table.appo td.type small{
+    display:block;font-size:11.5px;color:#6b7690;font-weight:700;
+  }
+  table.appo tr.g-sokuji td.type{border-left-color:var(--blue);background:#f1f6fd;}
+  table.appo tr.g-yoku td.type{border-left-color:var(--green);background:#f1f8f3;}
+  table.appo tr.g-yokuyoku td.type{border-left-color:var(--warn);background:#fdf6ee;}
+  table.appo td.none{color:#a0a8b8;text-align:center;}
+
+  .chip{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:800;
+    padding:3px 10px;
+    border-radius:999px;
+    margin:2px 4px 2px 0;
+    border:1.5px solid transparent;
+    line-height:1.5;
+  }
+  .chip.mail{background:#eaf1fc;color:#244f94;border-color:#c5d6f2;}
+  .chip.zoom{background:#e6f5f7;color:#1c6b78;border-color:#bfe0e5;}
+  .chip.thanks{background:#fdf0e1;color:#a85410;border-color:#f1d4ae;}
+  .chip.call{background:#fdeceb;color:#a83226;border-color:#f3c5c0;}
+  .chip.time{background:#eef0f5;color:#1b2a4a;border-color:#d3d8e4;}
+  .chip.fnote{background:#fff7e3;color:#8a6410;border-color:#efd9a0;}
+
+  .small-note{
+    font-size:12.5px;
+    font-weight:700;
+    color:#6b7690;
+    margin-top:8px;
+  }
+
+  /* ---- 前日18時詰めの流れ ---- */
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{
+    display:flex;gap:14px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:14px 16px;
+    background:#fff;
+  }
+  .step .num{
+    flex:0 0 32px;height:32px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step .main{flex:1;}
+  .step .title{font-size:15.5px;font-weight:800;color:var(--navy);}
+  .step .desc{font-size:14.5px;font-weight:700;margin-top:4px;}
+  .step .arrow-line{display:block;font-size:14px;font-weight:700;color:#556;margin-top:4px;}
+  .step-arrow{
+    position:relative;height:20px;
+  }
+  .step-arrow::before{
+    content:"";position:absolute;left:30px;top:0;bottom:6px;width:2px;background:var(--navy);
+  }
+  .step-arrow::after{
+    content:"";position:absolute;left:24px;bottom:0;
+    border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--navy);
+  }
+  .callout{
+    margin-top:8px;
+    border:1px solid #e7c79c;
+    background:#fff9f1;
+    border-radius:4px;
+    padding:6px 10px;
+    font-size:13.5px;
+    font-weight:800;
+    color:var(--warn);
+  }
+
+  /* ---- セリフ ---- */
+  .lead-text{font-size:14.5px;font-weight:800;margin-bottom:8px;}
+  .quote{
+    border-left:4px solid var(--warn);
+    background:#fdf7f2;
+    padding:12px 16px;
+    font-size:14.5px;
+    line-height:1.9;
+    border-radius:0 6px 6px 0;
+  }
+  .quote .q-label{display:block;font-size:11.5px;font-weight:800;color:#8a6a4a;margin-bottom:2px;}
+
+  /* ---- 詰め担当 ---- */
+  .chain-row{
+    display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    margin-bottom:10px;
+    background:#fff;
+  }
+  .chain-row .who{
+    flex:0 0 auto;
+    font-weight:800;font-size:14.5px;color:var(--navy);
+    margin-right:6px;
+  }
+  .person{
+    display:inline-flex;align-items:center;gap:6px;
+    background:#eef2f9;
+    border:1.5px solid #c9d4e8;
+    border-radius:999px;
+    padding:4px 12px 4px 6px;
+    font-weight:800;font-size:14.5px;color:var(--navy);
+  }
+  .person .rank{
+    width:20px;height:20px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    font-size:11px;font-weight:800;
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  .chain-arrow{color:#9aa5b8;font-weight:800;font-size:16px;}
+
+  /* ---- 注意事項 ---- */
+  .rule{
+    border:1px solid #e7c79c;
+    background:#fff9f1;
+    border-radius:6px;
+    padding:14px 16px;
+    font-size:14.5px;
+    font-weight:700;
+  }
+  .rule .rule-title{
+    font-size:13px;font-weight:800;color:var(--warn);margin-bottom:4px;
+  }
+
+  .footer{
+    border-top:1px solid var(--line);
+    padding:14px 32px;
+    font-size:11px;
+    color:#888;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
+  }
+
+  @media (max-width:760px){
+    body{padding:12px;}
+    .body{padding:20px 16px 24px;}
+    .header{padding:18px 16px;}
+  }
+</style>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+<nav class="topbar">
+  <a href="./" class="home">🏠 ホーム</a>
+  <span class="sep"></span>
+  <a href="appo-followup.html" class="active">アポ取得後の対応</a>
+  <a href="it-is-handover.html">IT→IS引継ぎ</a>
+  <a href="handover.html">商談の引継ぎ手順</a>
+  <a href="workflow.html">受注後ワークフロー</a>
+</nav>
+<div class="sheet">
+  <div class="header">
+    <div class="eyebrow">RUNBIRD IS事業部　アポ種別フロー</div>
+    <h1>アポ取得後の対応一覧</h1>
+    <div class="sub">アポ種別ごとの連絡・詰めのタイミング　｜　2026年10月8日 更新</div>
+  </div>
+
+  <div class="body">
+    <div class="policy-note">
+      <b>このページの位置づけ</b><br>
+      ガチガチの規律ではなく、「条例」レベルの目安です。大前提として、報告漏れなどは一人で抱えず、みんなで管理します。
+    </div>
+
+    <p class="lvl1 first">■ アポ種別ごとの対応</p>
+
+    <div class="table-wrap">
+      <table class="appo">
+        <thead>
+          <tr>
+            <th>アポ種別</th>
+            <th><span class="no">1</span>アポ後すぐ</th>
+            <th><span class="no">2</span>詰めタイミング</th>
+            <th><span class="no">3</span>詰め後</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="g-sokuji">
+            <td class="type">即々アポ<small>（30分以内）</small></td>
+            <td>
+              <span class="chip mail">メール送付</span>
+              <span class="chip zoom">ZoomのURL添付</span>
+              <span class="chip call">電話しながら確認してもらう</span>
+            </td>
+            <td><span class="chip time">詰め無し</span></td>
+            <td class="none">—</td>
+          </tr>
+          <tr class="g-sokuji">
+            <td class="type">即アポ</td>
+            <td>
+              <span class="chip mail">メール送付</span>
+              <span class="chip zoom">ZoomのURL添付</span>
+            </td>
+            <td><span class="chip time">即詰め</span></td>
+            <td class="none">—</td>
+          </tr>
+          <tr class="g-yoku">
+            <td class="type">翌10時アポ</td>
+            <td>
+              <span class="chip mail">メール送付</span>
+              <span class="chip zoom">ZoomのURL添付</span>
+            </td>
+            <td>
+              <span class="chip time">前日18時詰め</span><br>
+              <span class="chip fnote">Fなら9:45詰め</span>
+            </td>
+            <td class="none">—</td>
+          </tr>
+          <tr class="g-yoku">
+            <td class="type">翌10時以降</td>
+            <td>
+              <span class="chip mail">メール送付</span>
+              <span class="chip zoom">ZoomのURL添付</span>
+            </td>
+            <td><span class="chip time">当日詰め</span></td>
+            <td class="none">—</td>
+          </tr>
+          <tr class="g-yokuyoku">
+            <td class="type">翌々10時アポ</td>
+            <td>
+              <span class="chip mail">メール送付</span>
+              <span class="chip thanks">お礼のみ</span>
+            </td>
+            <td>
+              <span class="chip time">前日18時詰め</span><br>
+              <span class="chip fnote">Fなら9:45詰め</span>
+            </td>
+            <td>
+              <span class="chip zoom">ZoomのURLメール送る</span>
+            </td>
+          </tr>
+          <tr class="g-yokuyoku">
+            <td class="type">翌々10時以降</td>
+            <td>
+              <span class="chip mail">メール送付</span>
+              <span class="chip thanks">お礼のみ</span>
+            </td>
+            <td><span class="chip time">当日詰め</span></td>
+            <td>
+              <span class="chip zoom">ZoomのURLメール送る</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="small-note">※ F ＝ 電話に出なかった</div>
+
+    <p class="lvl1">■ 前日18時詰めの流れ（2段階）</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div class="main">
+          <div class="title">前日18時に詰める</div>
+        </div>
+      </div>
+      <div class="step-arrow"></div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="main">
+          <div class="title">2回F（2回電話に出なかった）の場合</div>
+          <div class="desc">アポインターに戻す</div>
+          <span class="arrow-line">→ アポインターが「資料担当から電話が来る」旨を伝える</span>
+          <div class="callout">※ アポインターが営業中の場合は仲村が対応する</div>
+        </div>
+      </div>
+      <div class="step-arrow"></div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="main">
+          <div class="title">当日アポ時間の15分前に詰め電話する</div>
+          <div class="desc">10時アポなら9:45。戻したあとも、この詰め電話は行う</div>
+          <span class="arrow-line">→ ダメならアポインターに戻してリスケ</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="lvl1">■ アポインターの伝え方（日切りのあと）</p>
+
+    <div class="lead-text">日にちを切ったあと、詰めの電話に出てもらえるよう必ず伝える</div>
+    <div class="quote">
+      <span class="q-label">セリフ例</span>
+      「この後、資料担当の部署から連絡が入るので、ご対応お願いします！そのお電話に出ていただかないと、またスケジュール調整しないといけなくなっちゃうので、出てくださいね」
+    </div>
+
+    <p class="lvl1">■ 詰めの担当（優先順）</p>
+
+    <div class="chain-row">
+      <span class="who">佐久間のアポ</span>
+      <span class="person"><span class="rank">1</span>齋藤</span>
+      <span class="chain-arrow">→</span>
+      <span class="person"><span class="rank">2</span>江口</span>
+      <span class="chain-arrow">→</span>
+      <span class="person"><span class="rank">3</span>吉村</span>
+    </div>
+    <div class="chain-row">
+      <span class="who">仲村・アヤのアポ</span>
+      <span class="person"><span class="rank">1</span>佐久間</span>
+      <span class="chain-arrow">→</span>
+      <span class="person"><span class="rank">2</span>齋藤</span>
+      <span class="chain-arrow">→</span>
+      <span class="person"><span class="rank">3</span>江口</span>
+      <span class="chain-arrow">→</span>
+      <span class="person"><span class="rank">4</span>吉村</span>
+    </div>
+
+    <p class="lvl1">■ 注意事項・ルール</p>
+
+    <div class="rule">
+      <div class="rule-title">翌々以降のアポ</div>
+      翌々以降はお日にちが空いちゃうので「また改めてお時間変更ないか連絡します」と伝える
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>株式会社ランバード　IS事業部</span>
+    <span>2026年10月8日 更新</span>
+  </div>
+</div>
+</body>
+</html>
