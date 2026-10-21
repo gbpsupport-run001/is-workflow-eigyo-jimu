@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT事業部 → IS事業部 商談引継ぎフロー</title>
+<style>
+  :root{
+    --navy:#1b2a4a;
+    --blue:#2f5da6;
+    --green:#4a8a5c;
+    --warn:#c0621f;
+    --line:#d8dee8;
+    --bg:#f5f7fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    background:var(--bg);
+    color:#222;
+    margin:0;
+    padding:32px;
+    line-height:1.7;
+  }
+  .sheet{
+    max-width:960px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .header{
+    background:var(--navy);
+    color:#fff;
+    padding:20px 32px;
+  }
+  .header .eyebrow{font-size:12px;letter-spacing:.08em;opacity:.8;margin-bottom:4px;}
+  .header h1{margin:0;font-size:21px;}
+  .header .sub{font-size:12px;opacity:.75;margin-top:6px;}
+  .body{padding:28px 32px 32px;}
+
+  .page-nav{display:flex;justify-content:flex-end;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+  .nav-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--navy);color:#fff;text-decoration:none;
+    font-size:13px;font-weight:700;padding:9px 16px;border-radius:6px;
+    transition:background .15s ease;
+  }
+  .nav-btn:hover{background:var(--blue);}
+
+  .lvl1{
+    font-size:15px;font-weight:700;color:var(--navy);
+    margin:0 0 18px;padding-bottom:8px;border-bottom:2px solid var(--navy);
+  }
+
+  .cols{display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:start;}
+  .col{
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .col-title{
+    color:#fff;font-weight:700;font-size:15px;
+    padding:11px 16px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .col-title .no{
+    width:24px;height:24px;border-radius:50%;
+    background:#fff;font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .col.c1 .col-title{background:var(--blue);}
+  .col.c1 .col-title .no{color:var(--blue);}
+  .col.c2 .col-title{background:var(--green);}
+  .col.c2 .col-title .no{color:var(--green);}
+  .col-body{padding:16px;}
+
+  .branch{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;align-items:start;}
+  .branch-col{
+    background:#f2f6fc;
+    border-radius:6px;
+    padding:10px;
+  }
+  .branch-title{
+    text-align:center;font-weight:700;font-size:13.5px;color:var(--navy);
+    padding:4px 0 8px;
+  }
+
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:5px;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .card:last-child{margin-bottom:0;}
+  .card .card-title{
+    background:#eef2f9;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--navy);
+    padding:6px 10px;
+  }
+  .card .card-body{
+    padding:8px 10px;
+    font-size:12.5px;
+  }
+  .card.simple{
+    padding:10px 12px;
+    text-align:center;
+    font-weight:700;
+    font-size:13px;
+    color:var(--navy);
+  }
+  .c2 .card .card-title{background:#edf5ef;}
+
+  .card.warn{border-color:#e7c79c;}
+  .card.warn .card-title{background:#fbe7cc;color:var(--warn);}
+  .card.warn .card-body{background:#fff9f1;}
+
+  .card.final{
+    background:var(--green);
+    border-color:var(--green);
+    color:#fff;
+    text-align:center;
+    font-weight:700;
+    font-size:15px;
+    padding:14px 12px;
+    line-height:1.5;
+  }
+
+  ol.points{list-style:none;margin:0;padding:0;}
+  ol.points li{
+    display:flex;align-items:flex-start;gap:8px;
+    padding:3px 0;
+    font-size:12.5px;
+  }
+  ol.points .n{
+    flex:0 0 18px;height:18px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    font-size:10.5px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+
+  .arrow{
+    position:relative;
+    height:22px;
+    margin:2px 0;
+  }
+  .arrow::before{
+    content:"";
+    position:absolute;left:50%;top:0;bottom:6px;
+    width:2px;background:var(--navy);
+    transform:translateX(-50%);
+  }
+  .arrow::after{
+    content:"";
+    position:absolute;left:50%;bottom:0;
+    border-left:6px solid transparent;
+    border-right:6px solid transparent;
+    border-top:7px solid var(--navy);
+    transform:translateX(-50%);
+  }
+
+  .quote{
+    border-left:3px solid var(--blue);
+    background:#f5f8fd;
+    padding:6px 10px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#333;
+    border-radius:0 4px 4px 0;
+  }
+  .c2 .quote{border-left-color:var(--green);background:#f3f9f5;}
+
+  .footer{
+    border-top:1px solid var(--line);
+    padding:14px 32px;
+    font-size:11px;
+    color:#888;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
+  }
+  .footer a{color:var(--blue);text-decoration:none;}
+
+  @media (max-width:760px){
+    body{padding:12px;}
+    .body{padding:20px 16px 24px;}
+    .cols{grid-template-columns:1fr;}
+    .branch{grid-template-columns:1fr;}
+  }
+
+  .policy-note{
+    background:#f3f8f4;
+    border:1px solid #cfe3d4;
+    border-left:4px solid #4a8a5c;
+    border-radius:4px;
+    padding:10px 14px;
+    margin-bottom:20px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#2f4a38;
+  }
+  .policy-note b{color:#2f6b45;}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="header">
+    <div class="eyebrow">RUNBIRD IS事業部</div>
+    <h1>IT事業部 → IS事業部　商談引継ぎフロー</h1>
+    <div class="sub">商談の実施状況に応じて、下記の流れで対応</div>
+  </div>
+
+  <div class="body">
+    <div class="page-nav">
+      <a class="nav-btn" href="./">← 案件受注後のワークフロー</a>
+      <a class="nav-btn" href="handover.html">商談の引継ぎ手順 →</a>
+    </div>
+
+    <div class="policy-note">
+      <b>このページの位置づけ</b><br>
+      ガチガチの規律ではなく、「条例」レベルの目安です。大前提として、報告漏れなどは一人で抱えず、みんなで管理します。
+    </div>
+
+    <p class="lvl1">■ 商談引継ぎフロー</p>
+
+    <div class="cols">
+
+      <!-- ① 未商談 -->
+      <section class="col c1">
+        <div class="col-title"><span class="no">1</span>未商談</div>
+        <div class="col-body">
+
+          <div class="branch">
+            <div class="branch-col">
+              <div class="branch-title">未詰</div>
+
+              <div class="card warn">
+                <div class="card-title">要確認：詰め担当</div>
+                <div class="card-body">詰め担当が対応するか、アポインターがマエカク感覚で対応するかを確認</div>
+              </div>
+
+              <div class="card">
+                <div class="card-title">確認事項 4点</div>
+                <div class="card-body">
+                  <ol class="points">
+                    <li><span class="n">1</span><span>代表者確認</span></li>
+                    <li><span class="n">2</span><span>集客の意向確認（Yes）</span></li>
+                    <li><span class="n">3</span><span>有料であることの認識確認</span></li>
+                    <li><span class="n">4</span><span>メールアドレスを聞く</span></li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="branch-col">
+              <div class="branch-title">詰済</div>
+              <div class="card simple">メールアドレスを聞く</div>
+            </div>
+          </div>
+
+          <div class="arrow"></div>
+
+          <div class="card">
+            <div class="card-title">Zoom案内の確認</div>
+            <div class="card-body">IT事業部がZoomでの打合せをご案内済みか確認</div>
+          </div>
+
+          <div class="arrow"></div>
+
+          <div class="card">
+            <div class="card-title">未案内の場合</div>
+            <div class="card-body">
+              <div class="quote">「今日、Zoomでの打合せなので～」と自然に伝え、メールアドレスを聞く</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ② 商談済 -->
+      <section class="col c2">
+        <div class="col-title"><span class="no">2</span>商談済</div>
+        <div class="col-body">
+
+          <div class="card">
+            <div class="card-title">IT営業から引継ぎ</div>
+            <div class="card-body">
+              <div class="quote">「別の事業部でご案内します～」とお伝えして引継ぎ</div>
+            </div>
+          </div>
+
+          <div class="arrow"></div>
+
+          <div class="card">
+            <div class="card-title">IS担当から改めて連絡</div>
+            <div class="card-body">
+              <div class="quote">「○○の仲村です。<br>先日は○○のご対応をいただき、ありがとうございます。<br>改めてお時間をいただいて、お話しできればと思うのですが～」</div>
+            </div>
+          </div>
+
+          <div class="card warn" style="margin-top:10px;">
+            <div class="card-title">要確認：名乗る会社名</div>
+            <div class="card-body">どの会社名を名乗るか、事前に確認</div>
+          </div>
+
+          <div class="arrow"></div>
+
+          <div class="card final">商談日時を決める<br>（日切り）</div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>株式会社ランバード　IS事業部</span>
+    <a href="./">← 案件受注後のワークフローへ</a>
+  </div>
+</div>
+</body>
+</html>
