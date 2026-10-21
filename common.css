@@ -1,0 +1,91 @@
+/* ===== 全ページ共通：太めのゴシック体＋上部ナビ ===== */
+
+html body{
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic","Yu Gothic","YuGothic","Meiryo",sans-serif !important;
+  font-weight:600;
+  color:#14203a;
+  -webkit-font-smoothing:antialiased;
+}
+html body *{
+  font-family:inherit;
+}
+
+/* 見出しはさらに太く */
+.header h1{font-weight:800 !important;font-size:23px !important;}
+.header .sub{font-weight:600 !important;font-size:13px !important;opacity:.9 !important;}
+.header .eyebrow{font-weight:700 !important;font-size:12.5px !important;}
+.lvl1{font-weight:800 !important;font-size:18px !important;}
+
+/* ---- ワークフロー（workflow.html） ---- */
+.flow-title{font-weight:800 !important;font-size:16px !important;}
+ul.check li{font-size:15px !important;font-weight:700 !important;}
+ul.check li .txt .note{font-size:12.5px !important;font-weight:600 !important;color:#6b7690 !important;}
+ul.check li .step{font-size:13.5px !important;font-weight:800 !important;}
+ul.check li .role{font-size:11.5px !important;font-weight:800 !important;}
+.legend{font-size:12.5px !important;font-weight:700 !important;}
+.legend .badge{font-size:11.5px !important;}
+.template summary{font-size:13px !important;font-weight:800 !important;}
+.template .tpl-text{font-size:14px !important;font-weight:600 !important;}
+
+/* ---- 商談の引継ぎ手順（handover.html） ---- */
+.main .title{font-size:16px !important;font-weight:800 !important;}
+.main .desc{font-size:15px !important;font-weight:700 !important;}
+.quote{font-size:14.5px !important;font-weight:700 !important;}
+.arrow-line{font-size:14px !important;font-weight:700 !important;}
+.badge{font-size:11.5px !important;font-weight:800 !important;}
+
+/* ---- IT→IS 商談引継ぎフロー（it-is-handover.html） ---- */
+.col-title{font-size:17px !important;font-weight:800 !important;}
+.branch-title{font-size:15px !important;font-weight:800 !important;}
+.card .card-title{font-size:14px !important;font-weight:800 !important;}
+.card .card-body{font-size:14px !important;font-weight:700 !important;}
+.card.simple{font-size:15px !important;font-weight:800 !important;}
+.card.final{font-size:17px !important;font-weight:800 !important;}
+ol.points li{font-size:14px !important;font-weight:700 !important;}
+
+/* ---- 注記・フッター ---- */
+.policy-note{font-size:13.5px !important;font-weight:700 !important;}
+.footer{font-size:12px !important;font-weight:700 !important;}
+.nav-btn{font-size:14px !important;font-weight:800 !important;}
+
+/* ===== 上部ナビ（ホームボタン付き） ===== */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  max-width:960px;
+  margin:0 auto 16px;
+  background:#1b2a4a;
+  border-radius:8px;
+  padding:8px;
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  box-shadow:0 2px 8px rgba(27,42,74,.25);
+}
+.topbar a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  font-size:14px;
+  padding:8px 13px;
+  border-radius:6px;
+  white-space:nowrap;
+  transition:background .15s ease;
+}
+.topbar a:hover{background:#2f5da6;}
+.topbar a.home{background:#fff;color:#1b2a4a;}
+.topbar a.home:hover{background:#e6edf8;}
+.topbar a.active{background:#2f5da6;}
+.topbar .sep{
+  flex:0 0 1px;
+  background:rgba(255,255,255,.25);
+  margin:4px 2px;
+}
+
+@media (max-width:760px){
+  .topbar a{font-size:13px;padding:8px 10px;}
+}
+@media print{
+  .topbar{display:none;}
+}
