@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>IS事業部 アポ取得後の対応一覧</title>
 <style>
   :root{
@@ -233,12 +233,12 @@
 </head>
 <body>
 <nav class="topbar">
-  <a href="./" class="home">🏠 ホーム</a>
+  <a href="./" class="home"><span class="ic">🏠</span><span class="l">ホーム</span><span class="s">ホーム</span></a>
   <span class="sep"></span>
-  <a href="appo-followup.html" class="active">アポ取得後の対応</a>
-  <a href="it-is-handover.html">IT→IS引継ぎ</a>
-  <a href="handover.html">商談の引継ぎ手順</a>
-  <a href="workflow.html">受注後ワークフロー</a>
+  <a href="appo-followup.html" class="active"><span class="ic">📞</span><span class="l">アポ取得後の対応</span><span class="s">アポ後</span></a>
+  <a href="it-is-handover.html"><span class="ic">🔀</span><span class="l">IT→IS引継ぎ</span><span class="s">IT→IS</span></a>
+  <a href="handover.html"><span class="ic">🤝</span><span class="l">商談の引継ぎ手順</span><span class="s">商談</span></a>
+  <a href="workflow.html"><span class="ic">📋</span><span class="l">受注後ワークフロー</span><span class="s">受注後</span></a>
 </nav>
 <div class="sheet">
   <div class="header">
@@ -268,66 +268,66 @@
         <tbody>
           <tr class="g-sokuji">
             <td class="type">即々アポ<small>（30分以内）</small></td>
-            <td>
+            <td data-label="① アポ後すぐ">
               <span class="chip mail">メール送付</span>
               <span class="chip zoom">ZoomのURL添付</span>
               <span class="chip call">電話しながら確認してもらう</span>
             </td>
-            <td><span class="chip time">詰め無し</span></td>
-            <td class="none">—</td>
+            <td data-label="② 詰めタイミング"><span class="chip time">詰め無し</span></td>
+            <td data-label="③ 詰め後" class="none">—</td>
           </tr>
           <tr class="g-sokuji">
             <td class="type">即アポ</td>
-            <td>
+            <td data-label="① アポ後すぐ">
               <span class="chip mail">メール送付</span>
               <span class="chip zoom">ZoomのURL添付</span>
             </td>
-            <td><span class="chip time">即詰め</span></td>
-            <td class="none">—</td>
+            <td data-label="② 詰めタイミング"><span class="chip time">即詰め</span></td>
+            <td data-label="③ 詰め後" class="none">—</td>
           </tr>
           <tr class="g-yoku">
             <td class="type">翌10時アポ</td>
-            <td>
+            <td data-label="① アポ後すぐ">
               <span class="chip mail">メール送付</span>
               <span class="chip zoom">ZoomのURL添付</span>
             </td>
-            <td>
+            <td data-label="② 詰めタイミング">
               <span class="chip time">前日18時詰め</span><br>
               <span class="chip fnote">Fなら9:45詰め</span>
             </td>
-            <td class="none">—</td>
+            <td data-label="③ 詰め後" class="none">—</td>
           </tr>
           <tr class="g-yoku">
             <td class="type">翌10時以降</td>
-            <td>
+            <td data-label="① アポ後すぐ">
               <span class="chip mail">メール送付</span>
               <span class="chip zoom">ZoomのURL添付</span>
             </td>
-            <td><span class="chip time">当日詰め</span></td>
-            <td class="none">—</td>
+            <td data-label="② 詰めタイミング"><span class="chip time">当日詰め</span></td>
+            <td data-label="③ 詰め後" class="none">—</td>
           </tr>
           <tr class="g-yokuyoku">
             <td class="type">翌々10時アポ</td>
-            <td>
+            <td data-label="① アポ後すぐ">
               <span class="chip mail">メール送付</span>
               <span class="chip thanks">お礼のみ</span>
             </td>
-            <td>
+            <td data-label="② 詰めタイミング">
               <span class="chip time">前日18時詰め</span><br>
               <span class="chip fnote">Fなら9:45詰め</span>
             </td>
-            <td>
+            <td data-label="③ 詰め後">
               <span class="chip zoom">ZoomのURLメール送る</span>
             </td>
           </tr>
           <tr class="g-yokuyoku">
             <td class="type">翌々10時以降</td>
-            <td>
+            <td data-label="① アポ後すぐ">
               <span class="chip mail">メール送付</span>
               <span class="chip thanks">お礼のみ</span>
             </td>
-            <td><span class="chip time">当日詰め</span></td>
-            <td>
+            <td data-label="② 詰めタイミング"><span class="chip time">当日詰め</span></td>
+            <td data-label="③ 詰め後">
               <span class="chip zoom">ZoomのURLメール送る</span>
             </td>
           </tr>
