@@ -89,3 +89,140 @@ ol.points li{font-size:14px !important;font-weight:700 !important;}
 @media print{
   .topbar{display:none;}
 }
+
+/* ===== ナビ：PC表示（アイコン＋ふつうの名前） ===== */
+.topbar .ic{margin-right:6px;}
+.topbar .s{display:none;}
+a{-webkit-tap-highlight-color:rgba(47,93,166,.18);}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+.tpl-text,.quote,.card .card-body,.main .desc{overflow-wrap:anywhere;}
+
+/* ===================================================== */
+/* ===== スマホ表示（幅760px以下） ===== */
+/* ===================================================== */
+@media (max-width:760px){
+  body{padding:10px 10px calc(88px + env(safe-area-inset-bottom)) !important;}
+  .sheet{border-radius:10px !important;}
+  .header{padding:18px 16px !important;}
+  .header h1{font-size:20px !important;line-height:1.4 !important;}
+  .header .sub{font-size:12.5px !important;}
+  .body{padding:18px 14px 24px !important;}
+  .lvl1{font-size:17px !important;}
+  .page-nav{display:none !important;}
+  .legend{gap:8px 14px !important;padding:10px 12px !important;}
+  .footer{padding:12px 16px !important;font-size:11.5px !important;}
+  .policy-note{font-size:13.5px !important;padding:10px 12px !important;}
+
+  /* --- 下固定ナビ（親指で押しやすい） --- */
+  .topbar{
+    position:fixed !important;
+    left:0;right:0;bottom:0;top:auto;
+    max-width:none;
+    margin:0;
+    border-radius:14px 14px 0 0;
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:2px;
+    overflow:visible;
+    box-shadow:0 -2px 12px rgba(27,42,74,.3);
+  }
+  .topbar .sep{display:none;}
+  .topbar a{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    padding:6px 2px !important;
+    min-height:54px;
+    font-size:11px !important;
+    line-height:1.2;
+    text-align:center;
+    white-space:normal;
+  }
+  .topbar .ic{margin:0;font-size:21px;line-height:1;}
+  .topbar .l{display:none;}
+  .topbar .s{display:inline;}
+  .topbar a.home{background:transparent;color:#fff;}
+  .topbar a.active,.topbar a.home.active{background:#2f5da6;}
+
+  /* --- ワークフロー：チェックリストを2段に --- */
+  .flow-body{padding:4px 14px 10px !important;}
+  ul.check li{
+    display:grid !important;
+    grid-template-columns:auto auto 1fr;
+    grid-template-areas:"box step role" "txt txt txt";
+    align-items:center;
+    column-gap:8px;
+    row-gap:6px;
+    padding:13px 0 !important;
+  }
+  ul.check li > .box{grid-area:box;width:20px !important;height:20px !important;margin:0 !important;}
+  ul.check li > .step{grid-area:step;margin:0 !important;font-size:15px !important;}
+  ul.check li > .role{grid-area:role;justify-self:start;font-size:12px !important;padding:3px 9px !important;}
+  ul.check li > .txt{grid-area:txt;font-size:15.5px !important;line-height:1.7;}
+  .template summary{padding:12px !important;font-size:14px !important;}
+  .template .tpl-body{padding:14px !important;}
+  .template .tpl-text{font-size:15px !important;line-height:1.9 !important;}
+
+  /* --- 商談の引継ぎ手順 --- */
+  .main .title{font-size:16.5px !important;}
+  .main .desc{font-size:15.5px !important;}
+  .quote{font-size:15px !important;}
+
+  /* --- IT→IS フロー --- */
+  .col-body{padding:12px !important;}
+  .branch-col{padding:10px !important;}
+  .card .card-title{font-size:15px !important;}
+  .card .card-body{font-size:15px !important;}
+  ol.points li{font-size:15px !important;}
+
+  /* --- アポ取得後：表をカードに変換 --- */
+  .table-wrap{overflow:visible !important;border:none !important;}
+  table.appo{min-width:0 !important;}
+  table.appo thead{display:none;}
+  table.appo,table.appo tbody,table.appo tr,table.appo td{display:block;width:100%;}
+  table.appo tr{
+    border:1px solid #d8dee8;
+    border-radius:10px;
+    margin-bottom:14px;
+    overflow:hidden;
+    background:#fff;
+  }
+  table.appo td{border-top:none !important;padding:10px 14px !important;}
+  table.appo td + td{border-top:1px dashed #d8dee8 !important;}
+  table.appo td.type{
+    white-space:normal !important;
+    border-left:none !important;
+    border-top:6px solid #2f5da6 !important;
+    font-size:18px;
+    padding:12px 14px !important;
+  }
+  table.appo tr.g-yoku td.type{border-top-color:#4a8a5c !important;}
+  table.appo tr.g-yokuyoku td.type{border-top-color:#c0621f !important;}
+  table.appo td[data-label]::before{
+    content:attr(data-label);
+    display:block;
+    font-size:12px;
+    font-weight:800;
+    color:#6b7690;
+    margin-bottom:5px;
+  }
+  table.appo td.none{display:none !important;}
+  .chip{font-size:14px !important;padding:4px 12px !important;}
+  .small-note{font-size:13px !important;}
+
+  /* --- アポ取得後：手順・担当 --- */
+  .step .title{font-size:16.5px !important;}
+  .step .desc{font-size:15.5px !important;}
+  .chain-row .who{flex:1 1 100%;}
+  .person{font-size:15px !important;}
+
+  /* --- ホーム --- */
+  .card .name{font-size:18px !important;}
+  .card .desc{font-size:14.5px !important;}
+}
+
+/* 見出しの折り返しをきれいに */
+.header h1,.lvl1,.main .title,.card .name{text-wrap:balance;}
