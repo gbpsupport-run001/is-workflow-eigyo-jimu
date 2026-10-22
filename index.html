@@ -101,6 +101,7 @@
   .c-hand{--accent:var(--green);}
   .c-flow{--accent:var(--blue);}
   .c-sign{--accent:#1c7c8a;}
+  .c-script{--accent:#b5483a;}
 
   .footer{
     border-top:1px solid var(--line);
@@ -110,7 +111,7 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
   }
 
-  @media (max-width:760px){
+  @media screen and (max-width:760px){
     body{padding:12px;}
     .body{padding:20px 16px 26px;}
     .header{padding:22px 16px;}
@@ -118,6 +119,7 @@
   }
 </style>
 <link rel="stylesheet" href="common.css">
+<script src="common.js" defer></script>
 </head>
 <body>
 <nav class="topbar">
@@ -126,8 +128,9 @@
   <a href="appo-followup.html"><span class="ic">📞</span><span class="l">アポ取得後の対応</span><span class="s">アポ後</span></a>
   <a href="it-is-handover.html"><span class="ic">🔀</span><span class="l">IT→IS引継ぎ</span><span class="s">IT→IS</span></a>
   <a href="handover.html"><span class="ic">🤝</span><span class="l">商談の引継ぎ手順</span><span class="s">商談</span></a>
-  <a href="workflow.html"><span class="ic">📋</span><span class="l">受注後ワークフロー</span><span class="s">受注後</span></a>
+  <a href="contract-script.html"><span class="ic">🗣️</span><span class="l">ゲット後のスクリプト</span><span class="s">ゲット後</span></a>
   <a href="docusign-flow.html"><span class="ic">✍️</span><span class="l">DocuSign電子契約</span><span class="s">電子契約</span></a>
+  <a href="workflow.html"><span class="ic">📋</span><span class="l">受注後ワークフロー</span><span class="s">受注後</span></a>
 </nav>
 <div class="sheet">
   <div class="header">
@@ -175,6 +178,14 @@
         <div class="name">案件受注後のワークフロー</div>
         <div class="desc">MEOクラウド／BUZZ＋の流れと、営業・営業事務・業務の担当</div>
         <div class="tags"><span class="tag">MEOクラウド</span><span class="tag">BUZZ＋</span><span class="tag">チェックリスト</span></div>
+        <div class="go">ひらく →</div>
+      </a>
+
+      <a class="card c-script" href="contract-script.html">
+        <div class="icon">🗣️</div>
+        <div class="name">ゲット後の商談スクリプト</div>
+        <div class="desc">署名の前に口頭で伝えること、電子契約・オーナー権限・ロボペイの案内</div>
+        <div class="tags"><span class="tag">口頭</span><span class="tag">セリフ例</span><span class="tag">署名の前に</span></div>
         <div class="go">ひらく →</div>
       </a>
 
