@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IS事業部 ゲット後の商談スクリプト</title>
+<style>
+  :root{
+    --navy:#1b2a4a;
+    --blue:#2f5da6;
+    --green:#4a8a5c;
+    --warn:#c0621f;
+    --red:#c0392b;
+    --brick:#b5483a;
+    --teal:#1c7c8a;
+    --ds:#ffc82c;
+    --line:#d8dee8;
+    --bg:#f5f7fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    margin:0;
+    padding:32px;
+    line-height:1.7;
+  }
+  .sheet{
+    max-width:860px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .header{background:var(--navy);color:#fff;padding:20px 32px;}
+  .header .eyebrow{font-size:12px;letter-spacing:.08em;opacity:.8;margin-bottom:4px;}
+  .header h1{margin:0;font-size:21px;}
+  .header .sub{font-size:12px;opacity:.75;margin-top:6px;}
+  .body{padding:28px 32px 36px;}
+
+  .policy-note{
+    background:#f3f8f4;
+    border:1px solid #cfe3d4;
+    border-left:4px solid #4a8a5c;
+    border-radius:4px;
+    padding:10px 14px;
+    margin-bottom:22px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#2f4a38;
+  }
+  .policy-note b{color:#2f6b45;}
+
+  .lvl1{
+    font-size:15px;font-weight:700;color:var(--navy);
+    margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid var(--navy);
+  }
+
+  /* ---- 最初のひとこと ---- */
+  .must{
+    display:flex;align-items:center;gap:12px;
+    border:2px solid var(--red);
+    background:#fff3f2;
+    border-radius:8px;
+    padding:12px 16px;
+    margin-bottom:24px;
+    color:var(--red);
+    font-weight:800;
+    font-size:17px;
+  }
+  .must .star{font-size:22px;}
+
+  /* ---- ブロック ---- */
+  .block{
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:26px;
+    background:#fff;
+  }
+  .block-head{
+    display:flex;align-items:center;gap:10px;
+    color:#fff;
+    font-weight:800;
+    font-size:16px;
+    padding:11px 16px;
+  }
+  .block-head .no{
+    width:26px;height:26px;border-radius:50%;
+    background:#fff;
+    font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 26px;
+  }
+  .b1 .block-head{background:var(--warn);} .b1 .block-head .no{color:var(--warn);}
+  .b2 .block-head{background:var(--blue);} .b2 .block-head .no{color:var(--blue);}
+  .b3 .block-head{background:var(--green);} .b3 .block-head .no{color:var(--green);}
+  .b4 .block-head{background:var(--teal);} .b4 .block-head .no{color:var(--teal);}
+  .block-body{padding:16px 18px 18px;}
+
+  .tag{
+    display:inline-block;
+    font-size:11.5px;font-weight:800;color:#fff;
+    padding:2px 9px;border-radius:999px;
+    white-space:nowrap;
+  }
+  .tag.say{background:var(--warn);}
+  .tag.do{background:var(--blue);}
+
+  .lead{font-size:14.5px;font-weight:800;color:var(--navy);margin-bottom:10px;}
+
+  /* ---- セリフ ---- */
+  .quote{
+    border-left:4px solid var(--warn);
+    background:#fdf7f2;
+    padding:12px 16px;
+    font-size:14.5px;
+    line-height:1.9;
+    border-radius:0 6px 6px 0;
+    margin-top:8px;
+  }
+  .quote .q-label{display:block;font-size:11.5px;font-weight:800;color:#8a6a4a;margin-bottom:2px;}
+  .quote.blue{border-left-color:var(--blue);background:#f5f8fd;}
+  .quote.blue .q-label{color:#4a6a9a;}
+
+  .point{
+    display:flex;gap:12px;
+    padding:12px 0;
+    border-top:1px dashed var(--line);
+  }
+  .point:first-of-type{border-top:none;padding-top:0;}
+  .point .pn{
+    flex:0 0 30px;height:30px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .point .pt{flex:1;min-width:0;}
+  .point .pt .ptitle{font-size:15px;font-weight:800;color:var(--navy);}
+
+  .qa{
+    margin-top:14px;
+    border:1px solid #e7c79c;
+    background:#fff9f1;
+    border-radius:8px;
+    padding:12px 14px;
+  }
+  .qa .q{
+    display:flex;align-items:flex-start;gap:8px;
+    font-size:14.5px;font-weight:800;color:var(--warn);
+  }
+  .qa .q .tagq{
+    flex:0 0 auto;
+    background:var(--warn);color:#fff;font-size:11.5px;
+    padding:1px 8px;border-radius:999px;margin-top:2px;
+  }
+  .qa .a{margin-top:8px;font-size:14.5px;font-weight:700;}
+  .qa .a b{color:var(--warn);}
+
+  /* ---- チェック付き手順 ---- */
+  .todo{list-style:none;margin:0;padding:0;}
+  .todo li{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:10px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:15px;font-weight:700;
+  }
+  .todo li:last-child{border-bottom:none;}
+  .todo .box{
+    flex:0 0 20px;height:20px;border:2px solid #9aa5b8;border-radius:4px;margin-top:3px;
+  }
+  .todo .sn{
+    flex:0 0 auto;font-weight:800;color:#9aa5b8;font-size:15px;margin-top:0;
+  }
+  .todo .tx{flex:1;min-width:0;}
+  .todo .small{display:block;font-size:12.5px;font-weight:700;color:#6b7690;margin-top:2px;}
+
+  .dbtn{
+    display:inline-block;
+    background:var(--ds);color:#1b2a4a;
+    font-weight:800;font-size:.92em;
+    padding:1px 11px;border-radius:4px;border:1px solid #e3a900;
+    margin:0 2px;white-space:nowrap;
+  }
+  .dbtn.purple{background:#6f4bd8;color:#fff;border-color:#5a3bb5;}
+
+  .goto{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:12px;
+    background:var(--navy);color:#fff;text-decoration:none;
+    font-weight:800;font-size:14px;
+    padding:9px 16px;border-radius:6px;
+  }
+  .goto:hover{background:var(--blue);}
+
+  /* ---- メール件名 ---- */
+  .mailsub{
+    border:1px solid #c5d6f2;
+    background:#eaf1fc;
+    border-radius:6px;
+    padding:10px 14px;
+    font-size:14.5px;
+    font-weight:800;
+    color:#244f94;
+  }
+  .mailsub .ml{display:block;font-size:11.5px;color:#4a6a9a;margin-bottom:2px;}
+
+  .tips{list-style:none;margin:10px 0 0;padding:0;}
+  .tips li{
+    display:flex;gap:10px;align-items:flex-start;
+    padding:8px 0;
+    border-top:1px dashed var(--line);
+    font-size:14.5px;font-weight:700;
+  }
+  .tips li:first-child{border-top:none;}
+  .tips .ti{flex:0 0 26px;font-size:18px;line-height:1.5;}
+  .tips .tx b{color:var(--teal);}
+
+  .footer{
+    border-top:1px solid var(--line);
+    padding:14px 32px;
+    font-size:11px;
+    color:#888;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
+  }
+
+  @media screen and (max-width:760px){
+    body{padding:12px;}
+    .body{padding:20px 14px 26px;}
+    .header{padding:18px 16px;}
+    .block-body{padding:14px 14px 16px;}
+    .must{font-size:16px;padding:12px;}
+  }
+</style>
+<link rel="stylesheet" href="common.css">
+<script src="common.js" defer></script>
+</head>
+<body>
+<nav class="topbar">
+  <a href="./" class="home"><span class="ic">🏠</span><span class="l">ホーム</span><span class="s">ホーム</span></a>
+  <span class="sep"></span>
+  <a href="appo-followup.html"><span class="ic">📞</span><span class="l">アポ取得後の対応</span><span class="s">アポ後</span></a>
+  <a href="it-is-handover.html"><span class="ic">🔀</span><span class="l">IT→IS引継ぎ</span><span class="s">IT→IS</span></a>
+  <a href="handover.html"><span class="ic">🤝</span><span class="l">商談の引継ぎ手順</span><span class="s">商談</span></a>
+  <a href="contract-script.html" class="active"><span class="ic">🗣️</span><span class="l">ゲット後のスクリプト</span><span class="s">ゲット後</span></a>
+  <a href="docusign-flow.html"><span class="ic">✍️</span><span class="l">DocuSign電子契約</span><span class="s">電子契約</span></a>
+  <a href="workflow.html"><span class="ic">📋</span><span class="l">受注後ワークフロー</span><span class="s">受注後</span></a>
+</nav>
+<div class="sheet">
+  <div class="header">
+    <div class="eyebrow">RUNBIRD IS事業部　商談スクリプト</div>
+    <h1>ゲット後の商談時の流れ</h1>
+    <div class="sub">署名の前に口頭で伝えること／電子契約・オーナー権限・ロボペイの案内</div>
+  </div>
+
+  <div class="body">
+    <div class="policy-note">
+      <b>このページの位置づけ</b><br>
+      ガチガチの規律ではなく、「条例」レベルの目安です。大前提として、報告漏れなどは一人で抱えず、みんなで管理します。
+    </div>
+
+    <div class="must"><span class="star">★</span>画面共有は切る</div>
+
+    <!-- ① 口頭で伝える2点 -->
+    <div class="block b1">
+      <div class="block-head"><span class="no">1</span>署名の前に、口頭で伝える2点</div>
+      <div class="block-body">
+        <div class="lead"><span class="tag say">口頭</span>　はじめのひとこと</div>
+        <div class="quote">
+          <span class="q-label">セリフ例</span>
+          今回、ご契約書に署名いただく前に、お伝えしないといけない項目が2点ありまして、
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="point">
+          <div class="pn">1</div>
+          <div class="pt">
+            <div class="ptitle">クーリングオフ対象外の契約であること</div>
+            <div class="quote">
+              <span class="q-label">セリフ例</span>
+              1つめが、今回は企業間での契約、お約束ごとになるので、クーリングオフ対象外の契約なんですね。なんで、途中でやっぱやめるーみたいなことはできないのでそこだけご認識お願いします！
+            </div>
+          </div>
+        </div>
+
+        <div class="point">
+          <div class="pn">2</div>
+          <div class="pt">
+            <div class="ptitle">広告業界は「100%集客」の販売方法が禁止されていること</div>
+            <div class="quote">
+              <span class="q-label">セリフ例</span>
+              2つめが代表も認識はあると思うんですが、広告業界って100%集客できるみたいな販売方法は禁止されていて、絶対効果あるからやってくださいみたいな押し売りはされてないですよーっていう点なんですが、この2点問題なければ、チェックしてください。
+            </div>
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="q"><span class="tagq">聞かれたら</span>なんでクーリングオフ対象外なの？</div>
+          <div class="a">
+            <b>B to B</b> の契約だから（意地悪とかじゃない）
+            <div class="quote" style="background:#fff;">
+              <span class="q-label">セリフ例</span>
+              クーリングオフって消費者保護法の中の制度で、今回の契約は企業間の取引なんで、消費者って存在しないんですよー
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② 電子契約 -->
+    <div class="block b2">
+      <div class="block-head"><span class="no">2</span>電子契約の署名を案内する</div>
+      <div class="block-body">
+        <div class="lead"><span class="tag do">操作の案内</span>　この順番で声をかける</div>
+        <ul class="todo">
+          <li><span class="box"></span><span class="sn">1</span><span class="tx">メール宛に「文書の内容を確認してください」って届いてないです？</span></li>
+          <li><span class="box"></span><span class="sn">2</span><span class="tx">電子記録と電子署名に同意するに<b>チェック</b>お願いします。</span></li>
+          <li><span class="box"></span><span class="sn">3</span><span class="tx">右下の <span class="dbtn">続行</span> お願いします。</span></li>
+          <li><span class="box"></span><span class="sn">4</span><span class="tx">右上の黄色い <span class="dbtn">開始</span> ボタンを押して</span></li>
+          <li><span class="box"></span><span class="sn">5</span><span class="tx">右上の紫色の <span class="dbtn purple">利用規約に同意の上、申し込みます</span> にチェックお願いします</span></li>
+          <li><span class="box"></span><span class="sn">6</span><span class="tx">真ん中の右側「代表者氏名」の右にある黄色い署名ボタンを押して</span></li>
+          <li><span class="box"></span><span class="sn">7</span><span class="tx">左下の黄色い <span class="dbtn">選択して署名</span></span></li>
+          <li><span class="box"></span><span class="sn">8</span><span class="tx">右上の黄色い <span class="dbtn">完了</span> をおしてください。<span class="small">→ チェック</span></span></li>
+        </ul>
+        <a class="goto" href="docusign-flow.html">✍️ 画面つきの手順を見る（DocuSign電子契約）→</a>
+      </div>
+    </div>
+
+    <!-- ③ オーナー権限 -->
+    <div class="block b3">
+      <div class="block-head"><span class="no">3</span>Googleビジネスプロフィールの管理者権限（オーナー権限）</div>
+      <div class="block-body">
+        <div class="lead"><span class="tag do">操作の案内</span>　この順番で声をかける</div>
+        <ul class="todo">
+          <li><span class="box"></span><span class="sn">1</span><span class="tx">管理しているメールアドレスに「オーナー権限付与」or「管理リクエスト」の案内来ていますか？</span></li>
+          <li><span class="box"></span><span class="sn">2</span><span class="tx">「返信」ボタン押してください</span></li>
+          <li><span class="box"></span><span class="sn">3</span><span class="tx">オーナー権限を付与する。<span class="small">管理者の追加 or 譲渡</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ④ ロボペイ -->
+    <div class="block b4">
+      <div class="block-head"><span class="no">4</span>ロボペイ：クレジットカード登録の案内</div>
+      <div class="block-body">
+        <div class="mailsub">
+          <span class="ml">お客様に届くメールの件名</span>
+          【株式会社ランバード】よりクレジットカード情報登録のご案内
+        </div>
+
+        <div class="lead" style="margin-top:14px;"><span class="tag say">口頭</span>　登録のときに伝えること</div>
+        <ul class="tips">
+          <li><span class="ti">💳</span><span class="tx"><b>管理しやすいカード</b>で登録してね</span></li>
+          <li><span class="ti">📞</span><span class="tx">電話番号は<b>ハイフンなし</b>でね</span></li>
+          <li><span class="ti">🔍</span><span class="tx">PayPayカードなど、<b>カード番号が書いていない</b>カードは確認してね</span></li>
+          <li><span class="ti">⭐</span><span class="tx"><b>ポイントを貯めやすい</b>カードがおすすめ</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>株式会社ランバード　IS事業部</span>
+    <span>ゲット後の商談時の流れ</span>
+  </div>
+</div>
+</body>
+</html>
