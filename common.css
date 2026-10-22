@@ -83,7 +83,7 @@ ol.points li{font-size:14px !important;font-weight:700 !important;}
   margin:4px 2px;
 }
 
-@media (max-width:760px){
+@media screen and (max-width:760px){
   .topbar a{font-size:13px;padding:8px 10px;}
 }
 @media print{
@@ -100,7 +100,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 /* ===================================================== */
 /* ===== スマホ表示（幅760px以下） ===== */
 /* ===================================================== */
-@media (max-width:760px){
+@media screen and (max-width:760px){
   body{padding:10px 10px calc(88px + env(safe-area-inset-bottom)) !important;}
   .sheet{border-radius:10px !important;}
   .header{padding:18px 16px !important;}
@@ -227,3 +227,105 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 
 /* 見出しの折り返しをきれいに */
 .header h1,.lvl1,.main .title,.card .name{text-wrap:balance;}
+
+/* ===================================================== */
+/* ===== PDF出力ボタン ===== */
+/* ===================================================== */
+.tools{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+.tools-hint{font-size:12px;font-weight:700;color:#6b7690;text-align:right;}
+.pdf-btn{
+  -webkit-appearance:none;
+  appearance:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
+  color:#1b2a4a;
+  border:2px solid #1b2a4a;
+  border-radius:8px;
+  font-family:inherit;
+  font-weight:800;
+  font-size:14px;
+  padding:8px 16px;
+  cursor:pointer;
+  transition:background .15s ease,color .15s ease;
+}
+.pdf-btn:hover{background:#1b2a4a;color:#fff;}
+.print-meta{display:none;}
+
+@media screen and (max-width:760px){
+  .tools{justify-content:flex-end;}
+  .tools-hint{display:none;}
+  .pdf-btn{padding:10px 16px;font-size:14.5px;}
+  /* ナビが7項目になったので少し詰める */
+  .topbar a{font-size:10.5px !important;padding:6px 1px !important;}
+  .topbar .ic{font-size:19px !important;}
+}
+
+/* ===================================================== */
+/* ===== 紙・PDF出力用のレイアウト ===== */
+/* ===================================================== */
+@page{size:A4;margin:12mm 11mm;}
+
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  html,body{background:#fff !important;}
+  body{padding:0 !important;}
+
+  /* 画面用の操作パーツは出さない */
+  .topbar,.tools,.page-nav,.nav-btn,.goto{display:none !important;}
+
+  .sheet{
+    border:none !important;
+    border-radius:0 !important;
+    max-width:none !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+  }
+
+  /* 出力日時（いつの版か分かるように） */
+  .print-meta{
+    display:block;
+    font-size:10pt;
+    font-weight:700;
+    color:#445;
+    border-bottom:1px solid #cfd6e4;
+    padding:0 0 6px;
+    margin-bottom:10px;
+    line-height:1.6;
+  }
+
+  /* ヘッダーは紙向けに白地・紺文字（インクの節約） */
+  .header{
+    background:#fff !important;
+    color:#1b2a4a !important;
+    border-bottom:3px solid #1b2a4a;
+    padding:6px 0 10px !important;
+  }
+  .header .eyebrow,.header .sub{color:#445 !important;opacity:1 !important;}
+  .header h1{color:#1b2a4a !important;font-size:20pt !important;}
+  .body{padding:14px 0 0 !important;}
+
+  /* ページをまたいで途中で切れにくくする */
+  .card,.branch,.rule,.chain-row,.tile,figure,.quote,.danger,
+  .goal,tr,li,.callout,.policy-note,.qa,.point,.must{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .lvl1,.flow-title,.block-head{break-after:avoid;page-break-after:avoid;}
+
+  /* 折りたたみ（例文）は中身をそのまま出す */
+  details.template > summary{display:none !important;}
+  .template{border:1px solid #cfd6e4 !important;}
+
+  a{color:inherit !important;text-decoration:none !important;}
+  .shots img{box-shadow:none !important;}
+  .footer{border-top:1px solid #cfd6e4;margin-top:12px;padding:8px 0 0 !important;}
+}
