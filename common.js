@@ -39,7 +39,7 @@
     if (meta) {
       var url = location.href.split("#")[0];
       meta.innerHTML =
-        "<div><b>出力日時：" + s.long + "</b>　（この紙は出力した時点の内容です）</div>" +
+        "<div><b>ISガイドブック</b>　出力日時：" + s.long + "　（この紙は出力した時点の内容です）</div>" +
         "<div>最新版はこちら：" + url + "</div>";
     }
     // 保存されるPDFのファイル名に日付を入れる（版の見分け用）
