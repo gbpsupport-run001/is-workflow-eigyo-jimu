@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IS事業部 DocuSign電子契約書の対応フロー</title>
+<style>
+  :root{
+    --navy:#1b2a4a;
+    --blue:#2f5da6;
+    --green:#4a8a5c;
+    --warn:#c0621f;
+    --red:#c0392b;
+    --teal:#1c7c8a;
+    --ds:#ffc82c;
+    --line:#d8dee8;
+    --bg:#f5f7fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    margin:0;
+    padding:32px;
+    line-height:1.7;
+  }
+  .sheet{
+    max-width:860px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .header{background:var(--navy);color:#fff;padding:20px 32px;}
+  .header .eyebrow{font-size:12px;letter-spacing:.08em;opacity:.8;margin-bottom:4px;}
+  .header h1{margin:0;font-size:21px;}
+  .header .sub{font-size:12px;opacity:.75;margin-top:6px;}
+  .body{padding:28px 32px 36px;}
+
+  .policy-note{
+    background:#f3f8f4;
+    border:1px solid #cfe3d4;
+    border-left:4px solid #4a8a5c;
+    border-radius:4px;
+    padding:10px 14px;
+    margin-bottom:24px;
+    font-size:12.5px;
+    line-height:1.8;
+    color:#2f4a38;
+  }
+  .policy-note b{color:#2f6b45;}
+
+  .lvl1{
+    font-size:15px;font-weight:700;color:var(--navy);
+    margin:34px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--navy);
+  }
+  .lvl1.first{margin-top:0;}
+
+  /* ---- DocuSignのボタン見本 ---- */
+  .dbtn{
+    display:inline-block;
+    background:var(--ds);
+    color:#1b2a4a;
+    font-weight:800;
+    font-size:.92em;
+    padding:1px 11px;
+    border-radius:4px;
+    border:1px solid #e3a900;
+    margin:0 2px;
+    white-space:nowrap;
+  }
+  .link-txt{
+    text-decoration:underline;
+    color:var(--blue);
+    font-weight:800;
+  }
+  .cbox{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:18px;height:18px;
+    border:2px solid var(--navy);
+    border-radius:3px;
+    vertical-align:-3px;
+    margin:0 3px;
+    font-size:13px;
+    line-height:1;
+  }
+
+  /* ---- ざっくり全体像 ---- */
+  .overview{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 6px;
+    background:#eef2f9;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 14px;
+  }
+  .ov{
+    display:inline-flex;align-items:center;gap:6px;
+    background:#fff;
+    border:1.5px solid #c9d4e8;
+    border-radius:999px;
+    padding:4px 12px 4px 5px;
+    font-weight:800;font-size:14px;color:var(--navy);
+  }
+  .ov .n{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    font-size:12px;font-weight:800;
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  .ov-arrow{color:#9aa5b8;font-weight:800;}
+
+  /* ---- ステップ ---- */
+  .steps{display:flex;flex-direction:column;}
+  .step{
+    display:flex;gap:14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    background:#fff;
+  }
+  .step .num{
+    flex:0 0 34px;height:34px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    font-weight:800;font-size:16px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step .main{flex:1;min-width:0;}
+  .step .title{font-size:16px;font-weight:800;color:var(--navy);}
+  .step .desc{font-size:14.5px;font-weight:700;margin-top:6px;}
+  .step .desc + .desc{margin-top:4px;}
+  .step.important{border:2px solid var(--blue);}
+
+  .step-arrow{position:relative;height:22px;}
+  .step-arrow::before{
+    content:"";position:absolute;left:33px;top:0;bottom:6px;width:2px;background:var(--navy);
+  }
+  .step-arrow::after{
+    content:"";position:absolute;left:27px;bottom:0;
+    border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--navy);
+  }
+
+  .sub-steps{list-style:none;margin:8px 0 0;padding:0;}
+  .sub-steps li{
+    display:flex;align-items:flex-start;gap:8px;
+    font-size:14.5px;font-weight:700;
+    padding:5px 0;
+  }
+  .sub-steps .sn{
+    flex:0 0 22px;height:22px;border-radius:50%;
+    background:var(--blue);color:#fff;
+    font-size:12px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+
+  /* ---- 署名の3方法 ---- */
+  .tiles{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:10px;
+  }
+  .tile{
+    border:1px solid var(--line);
+    border-top:5px solid var(--teal);
+    border-radius:6px;
+    padding:10px 12px;
+    background:#f6fbfc;
+  }
+  .tile .t-title{font-size:14.5px;font-weight:800;color:var(--teal);}
+  .tile .t-desc{font-size:13px;font-weight:700;margin-top:4px;color:#33425e;}
+
+  /* ---- こんなときは（分岐） ---- */
+  .branch{
+    margin-top:12px;
+    border:2px dashed #e0b27a;
+    background:#fff9f1;
+    border-radius:8px;
+    padding:12px 14px;
+  }
+  .branch .b-head{
+    display:flex;align-items:center;gap:8px;
+    font-size:14.5px;font-weight:800;color:var(--warn);
+    margin-bottom:6px;
+  }
+  .branch .b-head .tag{
+    background:var(--warn);color:#fff;
+    font-size:11.5px;padding:1px 8px;border-radius:999px;
+  }
+  .b-row{
+    display:flex;gap:8px;
+    font-size:14px;font-weight:700;
+    padding:4px 0;
+  }
+  .b-row .k{
+    flex:0 0 46px;
+    font-size:12px;font-weight:800;
+    color:#fff;background:#a8794a;
+    border-radius:4px;
+    text-align:center;
+    height:22px;line-height:22px;
+    margin-top:2px;
+  }
+  .b-row .v{flex:1;min-width:0;}
+  .flow-inline{
+    display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+    margin-top:2px;
+  }
+  .flow-inline .fi{
+    background:#fff;border:1.5px solid #e7c79c;border-radius:6px;
+    padding:3px 10px;font-size:13.5px;font-weight:800;color:#7a4a1a;
+  }
+  .flow-inline .fa{color:#c0621f;font-weight:800;}
+
+  /* ---- 注意（赤） ---- */
+  .danger{
+    margin-top:12px;
+    border:2px solid var(--red);
+    background:#fff3f2;
+    border-radius:8px;
+    padding:12px 14px;
+    color:var(--red);
+    font-weight:800;
+    font-size:15px;
+    line-height:1.7;
+  }
+  .danger .d-head{font-size:13px;letter-spacing:.04em;margin-bottom:2px;}
+
+  /* ---- ゴール ---- */
+  .goal{
+    background:var(--green);
+    color:#fff;
+    border-radius:8px;
+    padding:16px 18px;
+    text-align:center;
+    font-weight:800;
+    font-size:17px;
+  }
+
+  .footer{
+    border-top:1px solid var(--line);
+    padding:14px 32px;
+    font-size:11px;
+    color:#888;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;
+  }
+
+  @media (max-width:760px){
+    body{padding:12px;}
+    .body{padding:20px 14px 26px;}
+    .header{padding:18px 16px;}
+    .step{padding:14px 12px;gap:10px;}
+    .step .num{flex-basis:30px;height:30px;font-size:15px;}
+    .step-arrow::before{left:27px;}
+    .step-arrow::after{left:21px;}
+    .tiles{grid-template-columns:1fr;}
+    .ov{font-size:14px !important;}
+  }
+
+  /* ---- 画像（スクリーンショット） ---- */
+  .step{flex-wrap:wrap;row-gap:0;}
+  .step .main{flex:1 1 calc(100% - 48px);}
+  .shots{
+    flex:1 1 100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:14px;
+    padding-left:48px;
+  }
+  .shots figure{margin:0;flex:0 1 230px;min-width:0;text-align:center;}
+  .shots.wide figure{flex-basis:340px;}
+  .shots img{
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid #cfd6e4;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(27,42,74,.15);
+    background:#fff;
+  }
+  .shots figcaption{
+    font-size:12.5px;
+    font-weight:800;
+    color:#33425e;
+    margin-top:7px;
+    line-height:1.45;
+  }
+  .shot-arrow{flex:0 0 auto;font-size:22px;font-weight:800;color:var(--navy);}
+  .shots .zoom-hint{font-size:11px;font-weight:700;color:#8a93a8;}
+
+  .branch .shots{padding-left:0;margin-top:12px;}
+  .branch .shots figure{flex-basis:200px;}
+
+  .shot-note{
+    flex:1 1 100%;
+    padding-left:48px;
+    font-size:12px;
+    font-weight:700;
+    color:#8a93a8;
+    margin-top:6px;
+  }
+
+  @media (max-width:760px){
+    .step .main{flex-basis:calc(100% - 40px);}
+    .shots{padding-left:0;gap:8px;}
+    .shots figure{flex:1 1 0;}
+    .shots.wide figure{flex:1 1 100%;}
+    .shots.single figure{flex:0 1 260px;}
+    .shot-arrow{font-size:18px;}
+    .branch .shots{flex-direction:column;align-items:center;}
+    .branch .shots figure{flex:0 1 auto;width:min(240px,100%);}
+    .branch .shots .shot-arrow{transform:rotate(90deg);}
+    .shot-note{padding-left:0;}
+  }
+
+  .shots.in-main{padding-left:0;margin-top:10px;margin-bottom:2px;}
+  .shots.in-main figure{flex-basis:360px;}
+  @media (max-width:760px){
+    .flow-inline{flex-direction:column;align-items:flex-start;gap:4px;}
+    .flow-inline .fa{transform:rotate(90deg);display:inline-block;margin-left:14px;line-height:1;}
+  }
+</style>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+<nav class="topbar">
+  <a href="./" class="home"><span class="ic">🏠</span><span class="l">ホーム</span><span class="s">ホーム</span></a>
+  <span class="sep"></span>
+  <a href="appo-followup.html"><span class="ic">📞</span><span class="l">アポ取得後の対応</span><span class="s">アポ後</span></a>
+  <a href="it-is-handover.html"><span class="ic">🔀</span><span class="l">IT→IS引継ぎ</span><span class="s">IT→IS</span></a>
+  <a href="handover.html"><span class="ic">🤝</span><span class="l">商談の引継ぎ手順</span><span class="s">商談</span></a>
+  <a href="workflow.html"><span class="ic">📋</span><span class="l">受注後ワークフロー</span><span class="s">受注後</span></a>
+  <a href="docusign-flow.html" class="active"><span class="ic">✍️</span><span class="l">DocuSign電子契約</span><span class="s">電子契約</span></a>
+</nav>
+<div class="sheet">
+  <div class="header">
+    <div class="eyebrow">RUNBIRD IS事業部　電子契約書</div>
+    <h1>DocuSign 電子契約書の対応フロー【スマホ版】</h1>
+    <div class="sub">メール送付後、お客様（代表）がスマホで署名を完了するまでの案内</div>
+  </div>
+
+  <div class="body">
+    <div class="policy-note">
+      <b>このページの位置づけ</b><br>
+      ガチガチの規律ではなく、「条例」レベルの目安です。大前提として、報告漏れなどは一人で抱えず、みんなで管理します。
+    </div>
+
+    <p class="lvl1 first">■ ざっくり全体の流れ</p>
+
+    <div class="overview">
+      <span class="ov"><span class="n">1</span>メールを開く</span>
+      <span class="ov-arrow">→</span>
+      <span class="ov"><span class="n">2</span>ページが開く</span>
+      <span class="ov-arrow">→</span>
+      <span class="ov"><span class="n">3</span>同意→続行</span>
+      <span class="ov-arrow">→</span>
+      <span class="ov"><span class="n">4</span>開始</span>
+      <span class="ov-arrow">→</span>
+      <span class="ov"><span class="n">5</span>記入</span>
+      <span class="ov-arrow">→</span>
+      <span class="ov"><span class="n">6</span>署名</span>
+      <span class="ov-arrow">→</span>
+      <span class="ov"><span class="n">7</span>完了</span>
+    </div>
+
+    <p class="lvl1">■ 案内の手順</p>
+
+    <div class="steps">
+
+      <!-- 1 -->
+      <div class="step">
+        <div class="num">1</div>
+        <div class="main">
+          <div class="title">相手に届くメールを開いてもらう</div>
+          <div class="desc">メールの中の黄色いボタン <span class="dbtn">文書の確認</span> を押してもらう</div>
+          <div class="desc">「文書の確認と署名を依頼しています」と書かれたメールです（RUNBIRDのロゴ入り）</div>
+        </div>
+      <div class="shots">
+        <figure><a href="images/ds-01-mail.jpg" target="_blank" rel="noopener"><img src="images/ds-01-mail.jpg" alt="届いたメール" loading="lazy"></a><figcaption>① 届いたメール</figcaption></figure><span class="shot-arrow">➡</span><figure><a href="images/ds-02-mail-tap.jpg" target="_blank" rel="noopener"><img src="images/ds-02-mail-tap.jpg" alt="「文書の確認」を押す" loading="lazy"></a><figcaption>② ここを押してもらう</figcaption></figure>
+      </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <!-- 2 -->
+      <div class="step">
+        <div class="num">2</div>
+        <div class="main">
+          <div class="title">「文書の内容を確認してください」のページが開く</div>
+          <div class="desc">docusign.net のページに移動します。画面の下のほうに、同意のチェック欄が出ます</div>
+        </div>
+      <div class="shots single">
+        <figure><a href="images/ds-03-open.jpg" target="_blank" rel="noopener"><img src="images/ds-03-open.jpg" alt="文書の内容を確認してくださいのページ" loading="lazy"></a><figcaption>このページが開く</figcaption></figure>
+      </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <!-- 3 -->
+      <div class="step important">
+        <div class="num">3</div>
+        <div class="main">
+          <div class="title">同意にチェックを入れて、続行を押す</div>
+          <ul class="sub-steps">
+            <li><span class="sn">①</span><span><span class="cbox">✓</span>「電子記録および電子署名の使用に同意します」にチェックを入れる</span></li>
+            <li><span class="sn">②</span><span>右下の <span class="dbtn">続行</span> を押す</span></li>
+          </ul>
+          <div class="desc">→ 電子契約書が開きます</div>
+      <div class="shots single wide in-main">
+        <figure><a href="images/ds-04-agree.jpg" target="_blank" rel="noopener"><img src="images/ds-04-agree.jpg" alt="同意にチェックして続行を押す" loading="lazy"></a><figcaption>①チェック → ②続行</figcaption></figure>
+      </div>
+
+          <div class="branch">
+            <div class="b-head"><span class="tag">注意点</span>代表から「英語が出てくるんだけど」と言われたら</div>
+            <div class="b-row">
+              <span class="k">原因</span>
+              <span class="v"><span class="link-txt">電子記録および電子署名の開示条件</span> のリンクを押してしまい、ドキュサインとランバードの間で結ばれている規約（英語）のページが出ている状態</span>
+            </div>
+            <div class="b-row">
+              <span class="k">対応</span>
+              <span class="v">
+                <div class="flow-inline">
+                  <span class="fi">英語のページを一度閉じてもらう</span><span class="fa">→</span>
+                  <span class="fi">「同意する」にチェック</span><span class="fa">→</span>
+                  <span class="fi">続行を押してもらう</span>
+                </div>
+              </span>
+            </div>
+            <div class="shots">
+              <figure><a href="images/ds-05-link-circle.jpg" target="_blank" rel="noopener"><img src="images/ds-05-link-circle.jpg" alt="赤丸のリンクを押してしまった状態" loading="lazy"></a><figcaption>赤丸のリンクを押すと…</figcaption></figure><span class="shot-arrow">➡</span><figure><a href="images/ds-06-english.jpg" target="_blank" rel="noopener"><img src="images/ds-06-english.jpg" alt="英語の規約ページ" loading="lazy"></a><figcaption>英語のページが開く</figcaption></figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <!-- 4 -->
+      <div class="step">
+        <div class="num">4</div>
+        <div class="main">
+          <div class="title">右上の「開始」を押す</div>
+          <div class="desc">書類のページが開いたら、右上の黄色い <span class="dbtn">開始</span> を押してから書類入力作業に移ります</div>
+          <div class="desc">（画面上部に「まず［開始］を選択します」と出ています）</div>
+        </div>
+      <div class="shots single">
+        <figure><a href="images/ds-07-start.jpg" target="_blank" rel="noopener"><img src="images/ds-07-start.jpg" alt="右上の開始を押す" loading="lazy"></a><figcaption>右上の「開始」を押す</figcaption></figure>
+      </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <!-- 5 -->
+      <div class="step">
+        <div class="num">5</div>
+        <div class="main">
+          <div class="title">書類に記入してもらう</div>
+          <div class="desc">必要な項目を入力してもらう。空白がないか、一緒に確認しながら進める</div>
+        </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <!-- 6 -->
+      <div class="step important">
+        <div class="num">6</div>
+        <div class="main">
+          <div class="title">署名をしてもらう</div>
+          <div class="desc">署名の欄をタップすると、サインの方法を3つから選べます</div>
+
+          <div class="tiles">
+            <div class="tile">
+              <div class="t-title">スタイルの選択</div>
+              <div class="t-desc">メール送付時にこちら側で入力した、代表のフルネームが使われる</div>
+            </div>
+            <div class="tile">
+              <div class="t-title">手書き</div>
+              <div class="t-desc">指で手書きの署名を記入できる</div>
+            </div>
+            <div class="tile">
+              <div class="t-title">アップロード</div>
+              <div class="t-desc">署名のデータを読み込ませて記入する</div>
+            </div>
+          </div>
+
+      <div class="shots in-main">
+        <figure><a href="images/ds-08-sign-style.jpg" target="_blank" rel="noopener"><img src="images/ds-08-sign-style.jpg" alt="署名：スタイルの選択" loading="lazy"></a><figcaption>「スタイルの選択」</figcaption></figure><figure><a href="images/ds-09-sign-hand.jpg" target="_blank" rel="noopener"><img src="images/ds-09-sign-hand.jpg" alt="署名：手書き" loading="lazy"></a><figcaption>「手書き」</figcaption></figure>
+      </div>
+          <div class="desc" style="margin-top:12px;">どれかを選んでもらったら、左下の <span class="dbtn">選択して署名</span> を押すと署名が適用されます</div>
+
+          <div class="danger">
+            <div class="d-head">※ 注意 ※</div>
+            一度「選択して署名」をすると、以降変更することができません！<br>
+            慎重に案内してあげてください！
+          </div>
+        </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <!-- 7 -->
+      <div class="step">
+        <div class="num">7</div>
+        <div class="main">
+          <div class="title">右上の「完了」を押す</div>
+          <div class="desc">署名が終わったら、右上に出ている黄色い <span class="dbtn">完了</span> を押すと、電子契約書の処理が完了します</div>
+
+      <div class="shots single in-main">
+        <figure><a href="images/ds-10-done.jpg" target="_blank" rel="noopener"><img src="images/ds-10-done.jpg" alt="右上の完了を押す" loading="lazy"></a><figcaption>右上の「完了」を押す</figcaption></figure>
+      </div>
+          <div class="branch">
+            <div class="b-head"><span class="tag">こんなとき</span>「完了が押せないんだけど」と言われたら</div>
+            <div class="b-row">
+              <span class="k">原因</span>
+              <span class="v">どこかに記入漏れがあります。多いのは<b>「店舗名」</b>です</span>
+            </div>
+            <div class="b-row">
+              <span class="k">対応</span>
+              <span class="v">
+                <div class="flow-inline">
+                  <span class="fi">空白がないか一緒に確認</span><span class="fa">→</span>
+                  <span class="fi">埋めてもらう</span><span class="fa">→</span>
+                  <span class="fi">もう一度「完了」を押してもらう</span>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-arrow"></div>
+
+      <div class="goal">✔ 電子契約書の処理が完了！</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>株式会社ランバード　IS事業部</span>
+    <span>DocuSign 電子契約書メール送付対応時【スマホ版】</span>
+  </div>
+</div>
+</body>
+</html>
