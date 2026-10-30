@@ -228,6 +228,45 @@
     .body{padding:20px 16px 24px;}
     .header{padding:18px 16px;}
   }
+
+  /* ---- 週またぎ・出張前週 ---- */
+  .chip.ok{background:#e4f4e8;color:#1f6b39;border-color:#b9dfc3;}
+  .chip.ng{background:#fdeceb;color:#a83226;border-color:#f3c5c0;}
+  .wk,.trip{
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .wk-row{display:grid;grid-template-columns:150px 1fr;border-top:1px solid var(--line);}
+  .wk-row:first-child{border-top:none;}
+  .wk-k{
+    background:#eef2f9;
+    padding:12px 14px;
+    font-weight:800;font-size:14.5px;color:var(--navy);
+  }
+  .wk-v{padding:10px 14px;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;}
+  .wk-arrow{font-weight:800;color:#9aa5b8;font-size:18px;}
+  .trip-row{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-top:1px solid var(--line);}
+  .trip-row:first-child{border-top:none;}
+  .trip-tag{
+    flex:0 0 96px;white-space:nowrap;
+    text-align:center;
+    color:#fff;font-weight:800;font-size:13px;
+    border-radius:6px;padding:3px 6px;margin-top:2px;
+  }
+  .trip-tag.ok{background:#2f8a4d;}
+  .trip-tag.ng{background:#c0392b;}
+  .trip-tag.do{background:#2f5da6;}
+  .trip-v{flex:1;min-width:0;font-size:15px;font-weight:700;}
+  .trip-v b{color:var(--navy);}
+  .trip-sub{font-size:13px;font-weight:700;color:#6b7690;margin-top:2px;}
+  @media screen and (max-width:760px){
+    .wk-row{grid-template-columns:1fr;}
+    .wk-k{padding:8px 14px 2px;}
+    .wk-v{padding:4px 14px 12px;background:#eef2f9;}
+    .trip-row{gap:10px;}
+    .trip-tag{flex-basis:92px;}
+  }
 </style>
 <link rel="stylesheet" href="common.css">
 <script src="common.js" defer></script>
@@ -247,7 +286,7 @@
   <div class="header">
     <div class="eyebrow">RUNBIRD IS事業部　アポ種別フロー</div>
     <h1>アポ取得後の対応一覧</h1>
-    <div class="sub">アポ種別ごとの連絡・詰めのタイミング　｜　2026年10月8日 更新</div>
+    <div class="sub">アポ種別ごとの連絡・詰めのタイミング　｜　2026年10月30日 更新</div>
   </div>
 
   <div class="body">
@@ -339,6 +378,49 @@
     </div>
     <div class="small-note">※ F ＝ 電話に出なかった</div>
 
+    <p class="lvl1">■ 週またぎアポのとき</p>
+
+    <div class="wk">
+      <div class="wk-row">
+        <div class="wk-k">翌アポの場合</div>
+        <div class="wk-v"><span class="chip ng">キャッチ無し</span></div>
+      </div>
+      <div class="wk-row">
+        <div class="wk-k">翌々アポの場合</div>
+        <div class="wk-v">
+          <span class="chip time">週末の午後でキャッチ</span>
+          <span class="wk-arrow">→</span>
+          <span class="chip call">当日9:45　資料担当伝える</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="lvl1">■ ITの出張週の前週</p>
+
+    <div class="trip">
+      <div class="trip-row">
+        <span class="trip-tag ok">掛けてよし</span>
+        <div class="trip-v">
+          <span class="chip ok">特々上リスト</span>
+          <span class="chip ok">特上リスト</span>
+          <span class="chip ok">AIリスト</span>
+        </div>
+      </div>
+      <div class="trip-row">
+        <span class="trip-tag ng">伝えない</span>
+        <div class="trip-v">
+          <b>Zoomであること</b>は伝えない
+          <div class="trip-sub">週またぎの可能性もあるため</div>
+        </div>
+      </div>
+      <div class="trip-row">
+        <span class="trip-tag do">判断する</span>
+        <div class="trip-v">
+          <b>詰めのとき</b>に、訪問かZoomかを判断する
+        </div>
+      </div>
+    </div>
+
     <p class="lvl1">■ 前日18時詰めの流れ（2段階）</p>
 
     <div class="steps">
@@ -380,22 +462,12 @@
     <p class="lvl1">■ 詰めの担当（優先順）</p>
 
     <div class="chain-row">
-      <span class="who">佐久間のアポ</span>
+      <span class="who">全員のアポ共通</span>
       <span class="person"><span class="rank">1</span>齋藤</span>
       <span class="chain-arrow">→</span>
-      <span class="person"><span class="rank">2</span>江口</span>
-      <span class="chain-arrow">→</span>
-      <span class="person"><span class="rank">3</span>吉村</span>
-    </div>
-    <div class="chain-row">
-      <span class="who">仲村・アヤのアポ</span>
-      <span class="person"><span class="rank">1</span>佐久間</span>
-      <span class="chain-arrow">→</span>
-      <span class="person"><span class="rank">2</span>齋藤</span>
+      <span class="person"><span class="rank">2</span>吉村</span>
       <span class="chain-arrow">→</span>
       <span class="person"><span class="rank">3</span>江口</span>
-      <span class="chain-arrow">→</span>
-      <span class="person"><span class="rank">4</span>吉村</span>
     </div>
 
     <p class="lvl1">■ 注意事項・ルール</p>
@@ -408,7 +480,7 @@
 
   <div class="footer">
     <span>株式会社ランバード　IS事業部</span>
-    <span>2026年10月8日 更新</span>
+    <span>2026年10月30日 更新</span>
   </div>
 </div>
 </body>
